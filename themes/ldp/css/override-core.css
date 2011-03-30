@@ -1,0 +1,11 @@
+/**
+ * Override items in core.css ====================================================
+ */
+table {
+  background-color:transparent;
+}
+
+  table td, table th {
+    border:0px;
+    padding:0px;
+    }

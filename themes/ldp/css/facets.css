@@ -1,0 +1,30 @@
+/**
+ * Facets ====================================================
+ */
+div.block-apachesolr_search {
+  background-color:#ececeb !important;
+  margin-bottom:0px !important;
+  }
+  div.block-apachesolr_search h2.block-title {
+    font-size:12px;
+    background-color:transparent;
+    border-bottom:none;
+  }
+  div.block-apachesolr_search div.item-list {
+    padding-bottom:5px;
+    border-bottom:1px dotted #666660;
+    }
+    div.block-apachesolr_search div.item-list li {
+      border-bottom:none;
+      }
+  div.block-apachesolr_search div.block-content {
+    padding-top:0px !important;
+    padding-bottom:0px !important;
+    }
+
+.apachesolr-facet {
+  color:#666660;
+  font-weight:normal;
+  font-size:12px;
+  padding-left:4px;
+}

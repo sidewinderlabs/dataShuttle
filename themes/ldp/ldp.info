@@ -1,0 +1,105 @@
+name = "LDP"
+description = "Theme for the Linked Data Platform."
+core = "6.x"
+engine = "phptemplate"
+base theme = "jake"
+
+project = "ldp"
+
+stylesheets[screen][] = "style.css"
+stylesheets[screen][] = "css/facets.css"
+stylesheets[screen][] = "css/search_results.css"
+
+stylesheets[screen][] = "css/sections.css"
+stylesheets[screen][] = "css/override-core.css"
+stylesheets[screen][] = "css/override-style.css"
+
+stylesheets[screen][] = "css/theme-dev.css"
+
+scripts[] = "js/ldp.js"
+scripts[] = "../../libraries/flot/jquery.flot.js"
+scripts[] = "../../libraries/flot/jquery.flot.navigate.js"
+scripts[] = "js/flot-bar-chart.js"
+;scripts[] = "js/grid.js"
+
+regions[palette] = "Palette"
+regions[page_tools] = "Page tools"
+regions[page_title] = "Page title"
+regions[left] = "Left sidebar"
+regions[right] = "Right sidebar"
+regions[content] = "Content"
+
+; Theme features ======================================================
+
+;features[] = "logo"
+features[] = "name"
+features[] = "slogan"
+features[] = "mission"
+features[] = "primary_links"
+
+; DesignKit ===========================================================
+
+; Site logo
+designkit[image][logo][title] = "Site logo"
+designkit[image][logo][description] = "Header logo."
+designkit[image][logo][imagecache] = "imagecache_scale:240x40"
+
+; Print logo
+designkit[image][printlogo][title] = "Print logo"
+designkit[image][printlogo][description] = "Print logo."
+designkit[image][printlogo][imagecache] = "imagecache_scale:720x120"
+
+; Wallpaper
+designkit[image][wallpaper][title] = "Wallpaper"
+designkit[image][wallpaper][description] = "Wallpaper."
+designkit[image][wallpaper][imagecache] = "imagecache_scale:600x300"
+
+; Background
+;designkit[color][background_color][title] = "Background"
+;designkit[color][background_color][description] = "Background color."
+;designkit[color][background_color][default] = "#fff"
+
+; Foreground
+;designkit[color][foreground_color][title] = "Foreground"
+;designkit[color][foreground_color][description] = "Foreground color."
+;designkit[color][foreground_color][default] = "#666660"
+
+; Header
+;designkit[color][header_color][title] = "Header"
+;designkit[color][header_color][description] = "Header color."
+;designkit[color][header_color][default] = "#fff"
+
+; Context layouts =====================================================
+
+; Layout: Default
+layouts[default][name] = "Default"
+layouts[default][description] = "Standard three column page."
+layouts[default][template] = "page"
+layouts[default][regions][] = "palette"
+layouts[default][regions][] = "page_tools"
+layouts[default][regions][] = "page_title"
+layouts[default][regions][] = "left"
+layouts[default][regions][] = "right"
+layouts[default][regions][] = "content"
+
+; Layout: Single sidebar
+layouts[sidebar][name] = "Single sidebar"
+layouts[sidebar][description] = "Page with left sidebar."
+layouts[sidebar][template] = "layout-sidebar"
+layouts[sidebar][stylesheet] = "css/override-layout.css"
+layouts[sidebar][regions][] = "palette"
+layouts[sidebar][regions][] = "page_tools"
+layouts[sidebar][regions][] = "page_title"
+layouts[sidebar][regions][] = "left"
+layouts[sidebar][regions][] = "content"
+
+; Layout: Two column
+layouts[twocolumn][name] = "Two column"
+layouts[twocolumn][description] = "Page with two columns split 50/50."
+layouts[twocolumn][template] = "layout-twocolumn"
+layouts[twocolumn][stylesheet] = "css/override-layout.css"
+layouts[twocolumn][regions][] = "palette"
+layouts[twocolumn][regions][] = "page_tools"
+layouts[twocolumn][regions][] = "page_title"
+layouts[twocolumn][regions][] = "right"
+layouts[twocolumn][regions][] = "content"

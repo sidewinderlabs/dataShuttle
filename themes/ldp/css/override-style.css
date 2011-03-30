@@ -1,0 +1,108 @@
+/**
+ * Override items in style.css ====================================================
+ */
+ body, body.ldp {
+ 	color:#666660;
+ 	background: #fff;
+   font-family:Helvetica, Sans Serif;
+   font-size:14px;
+ }
+
+ #page {
+   width: 960px;
+   margin: 0 auto;
+   margin-left: auto;
+   margin-right: auto;
+   position: relative;
+ }
+
+/**
+ * Palette =============================================================
+ */
+#palette {
+  right:120px;
+  }
+
+
+/**
+ * New theme-dev
+ */
+
+/* remove inherited box-shadow */
+.growl .messages, .sidebar .block, .sidebar .block .view-content .item-list, .page-content .node, .page-content div.block, .page-content div.pager, .page-content .view-content .item-list, .page-content .view-content table, .page-content > form {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+/**
+ * Branding & Navigation
+ */
+#branding {
+  background: #fff;
+  padding: 20px 10px;
+  height: auto;
+}
+
+#branding h1.site-name,
+#branding div.site-slogan {
+  float: right;
+  clear: both;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+
+#branding h1.site-name a.logo {
+  height: auto;
+  width: auto;
+  min-width: 150px;
+  overflow: hidden;
+  text-indent: 0;
+  text-align: right;
+
+  background-repeat:no-repeat;
+  background-position: 100% 0%;
+  color: #000;
+  
+  padding-top: 25px;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: bold;
+  letter-spacing: 0;
+  
+}
+
+#branding div.admin-link {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * canvas
+ */
+#main div.page-content {
+    padding: 0;
+}
+
+/**
+ * footer
+ */
+.ldp #footer {
+  position: relative;
+  top: -10px;
+  padding: 5px 10px;
+  background: #808078 url(../images/black-gradient.png) 0 0 repeat-x;
+  color: #d9d9d6;
+}
+
+.ldp #footer a {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* temp */
+/* hide homepage empty node */
+#node-28826 {
+  display: none;
+}

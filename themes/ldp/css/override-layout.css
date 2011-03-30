@@ -1,0 +1,45 @@
+/**
+ * Layout: Single sidebar
+ */
+body.layout-sidebar #main {
+  float:none;
+  width: 960px;
+  }
+
+/**
+ * Layout: No sidebars
+ */
+body.no-sidebars #left {
+  display:none !important;
+  }
+
+/**
+ * Layout: Two column
+ */
+body.layout-twocolumn #canvas {
+  width:100%;
+  }
+
+  body.layout-twocolumn #main {
+    width:70%;
+    }
+
+  body.layout-twocolumn #right {
+    width:30%;
+    }
+
+/**
+ * New theme-dev
+ */
+#page {
+  width: 960px;
+  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+/* context-block */
+/*.context-block .block-views:last-child {
+  margin-bottom: 0;
+}*/

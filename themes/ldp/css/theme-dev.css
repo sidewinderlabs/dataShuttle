@@ -1,0 +1,194 @@
+/* grid toggle for theme development */
+.bg-grid {
+  background: transparent url(../images/bg-grid.png) 50% 0 repeat-y !important;
+  display: block;
+  width: 100% !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  z-index: 99 !important;
+  opacity: 0.8;
+  padding-bottom: 30px;
+}
+
+.grid-toggle {
+  display: block;
+  padding: 10px;
+  position: fixed;
+  top: 40px;
+  right: 20px;
+  z-index: 999 !important;
+  cursor: pointer;
+  background: #00bdce;
+  color: #fff;
+  font-weight: bold;
+}
+.grid-toggle:hover {
+  color: #000;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+/* home page */
+
+/**
+ * view-topstories-home
+ */
+#block-views-home_topstories-block_1 .block-content {
+  background: #d9d9d6;
+}
+
+#block-views-home_topstories-block_1 .view-row {
+  background: #ececeb;
+  padding: 10px;
+  width: 445px;
+  float: left;
+}
+
+#block-views-home_topstories-block_1 .view-row .content,
+#block-views-home_topstories-block_1 .view-row .content p:last-child,
+#block-views-home_topstories-block_1 .more {
+  display: inline;
+  margin-bottom: 0;
+}
+#block-views-home_topstories-block_1 .first .more {
+  display: none;
+}
+
+#block-views-home_topstories-block_1 .first {
+  margin-right: 10px;
+}
+
+#block-views-home_topstories-block_1 .view-row .emvideo {
+  text-align: center;
+}
+
+/* view-ohio-health-problem */
+.view-ohio-health-problem {
+  padding: 10px 20px;
+}
+
+.view-ohio-health-problem table.views-view-grid {
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 0;
+}
+
+.view-ohio-health-problem table.views-view-grid tr {
+  /*border: 1px dotted #000;*/
+}
+.view-ohio-health-problem table.views-view-grid td,
+.view-ohio-health-problem table.views-view-grid th {
+  padding: 5px 0;
+}
+
+.view-ohio-health-problem table.views-view-grid tr.row-1 td {
+  border: 0 none;
+}
+
+.view-ohio-health-problem table.views-view-grid td a {
+  color: #666660;
+}
+
+/* temp */
+.view-ohio-health-problem .view-content {
+
+}
+
+.page-topics .view-ohio-health-problem {
+  background: #ececeb;
+  width: 920px;
+}
+
+/* #block-views_modes-modes */
+/* temp */
+#context-block-region-page_tools {
+  /*margin-bottom: 10px;*/
+}
+#page-tools #block-views_modes-modes {
+  margin-top: 40px;
+}
+
+#block-views_modes-modes {
+  margin-bottom: 10px;
+}
+
+#block-views_modes-modes span.icon {
+  display: none;
+}
+
+#block-views_modes-modes li a {
+  display: block;
+  width: 30px;
+  height: 23px;
+  text-indent: -999em;
+  margin-right: 10px;
+  opacity: 0.5;
+}
+
+#block-views_modes-modes li a:hover,
+#block-views_modes-modes li a.views-modes-active {
+  opacity: 1;
+}
+
+#block-views_modes-modes li.default a {
+  background: transparent url(../images/view-mode-icons.png) 0 50% no-repeat;
+}
+
+#block-views_modes-modes li.views-mode-list a {
+  background: transparent url(../images/view-mode-icons.png) -45px 50% no-repeat;
+}
+
+#block-views_modes-modes li.views-mode-chart a {
+  background: transparent url(../images/view-mode-icons.png) -90px 50% no-repeat;
+}
+
+#block-views_modes-modes li.views-mode-map a {
+  background: transparent url(../images/view-mode-icons.png) -135px 50% no-repeat;
+}
+
+/* maintenance page */
+.maintenance #branding h1.site-name {
+  background: transparent url(../images/nhs-logo.gif) 100% 0 no-repeat;
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  height: auto;
+  letter-spacing: 0;
+  line-height: 20px;
+  min-width: 200px;
+  overflow: hidden;
+  padding-top: 25px;
+  text-align: right;
+  text-indent: 0;
+  width: auto;
+}
+
+.maintenance .page-title {
+  margin-bottom: 20px;
+}
+.maintenance #canvas {
+  float: none;
+  min-height: 350px;
+}
+
+.maintenance #main {
+  font-size: 2em;
+  line-height: 1.2em;
+  padding: 40px 10px;
+}
+
+.maintenance #footer {
+    background: url("../images/black-gradient.png") repeat-x scroll 0 0 #808078;
+    color: #D9D9D6;
+    padding: 5px 10px;
+    position: relative;
+    top: -10px;
+}
+
+.maintenance #footer a {
+  color: #fff;
+  font-weight: bold;
+}
