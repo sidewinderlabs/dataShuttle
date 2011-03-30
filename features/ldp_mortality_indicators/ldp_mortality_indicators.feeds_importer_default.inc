@@ -71,7 +71,7 @@ function ldp_mortality_indicators_feeds_importer_default() {
         'batch_size' => '10',
       ),
     ),
-    'content_type' => 'indicator_feed',
+    'content_type' => '',
     'update' => 0,
     'import_period' => '86400',
     'expire_period' => 3600,

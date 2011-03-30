@@ -12,7 +12,10 @@ function ldp_mortality_indicators_default_page_manager_pages() {
   $page->admin_title = 'Indicators';
   $page->admin_description = '';
   $page->path = 'indicator/%icd10range/%subject/%geographicalunit/year/%year';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array();
   $page->arguments = array(
     'icd10range' => array(
