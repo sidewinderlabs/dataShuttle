@@ -12,7 +12,7 @@ function datashuttle_uuid_features_default_content() {
     'uid' => '0',
     'status' => '1',
     'created' => '1301321553',
-    'changed' => '1301427668',
+    'changed' => '1301430024',
     'comment' => '0',
     'promote' => '1',
     'moderate' => '0',
@@ -22,30 +22,29 @@ function datashuttle_uuid_features_default_content() {
     'revision_uid' => '1',
     'title' => 'A Linked Data Applications Platform for Innovation',
     'body' => 'The NIC is developing new web search tools to help NHS clinicians, managers and commissioners, industry and Government departments discover more meaningful information about Healthcare technology innovation.
-      
-      When the Internet came along it opened up a vast store of information that has grown at an exponential rate. There is now an awful lot of data in existing databases but, with traditional search engines, it has become more and more difficult to find what you want. Even when you do find it, you usually get a whole lot of other stuff that you have to trawl through first. This is because search engines work using words rather than meaning. For example, if you are looking for information on \'diagnostics in childhood cancers\', you might actually be looking for the names of people globally who are involved in R&amp;D in this field, or you might be interested in the most recent diagnostic products. If you enter \'diagnostics in childhood cancers\' into current search engines, they will locate documents that contain the words you have chosen. In this case, you are likely to get a very long list of pages that contain the words \'cancer\' or \'diagnostics\' as well as reams of information on all aspects of childhood. But the key innovators or the most recent products may well not be included. That\'s why most people give up after one or two pages of a Google search!
-      
-      <h2>Linked data</h2>
-      The new approach being used by the NIC is called \'linked data\'. ‘Linked data’ uses new tools to source the data that you meant to find, and then links it to other data so you get the answer to the question you asked - and, sometimes, the answers to the questions you wished you\'d asked!
-      
-      The NIC is looking at linking data in the field of Healthcare technology, making the DH the first Government department to take the approach in this field.
-      
-      <h2>What\'s in it for you?</h2>
-      A fully operational linked data system&nbsp;allows you to access healthcare technology data about who is doing what, where they\'re doing it, what they\'re doing, what technology they\'re using and how. You will also be able to make your own data freely available so that others can link to it and use it to support and develop innovations.
-      
-      The NIC will be developing a first set of tools that will find and link relevant data to give you more meaningful results. The aim is to help innovators and commissioners in health, industry and Government find the answers to all their questions about innovation related to people, places and technologies in their respective fields.',
+        
+        When the Internet came along it opened up a vast store of information that has grown at an exponential rate. There is now an awful lot of data in existing databases but, with traditional search engines, it has become more and more difficult to find what you want. Even when you do find it, you usually get a whole lot of other stuff that you have to trawl through first. This is because search engines work using words rather than meaning. For example, if you are looking for information on \'diagnostics in childhood cancers\', you might actually be looking for the names of people globally who are involved in R&amp;D in this field, or you might be interested in the most recent diagnostic products. If you enter \'diagnostics in childhood cancers\' into current search engines, they will locate documents that contain the words you have chosen. In this case, you are likely to get a very long list of pages that contain the words \'cancer\' or \'diagnostics\' as well as reams of information on all aspects of childhood. But the key innovators or the most recent products may well not be included. That\'s why most people give up after one or two pages of a Google search!
+        
+        <h2>Linked data</h2>
+        The new approach being used by the NIC is called \'linked data\'. ‘Linked data’ uses new tools to source the data that you meant to find, and then links it to other data so you get the answer to the question you asked - and, sometimes, the answers to the questions you wished you\'d asked!
+        
+        The NIC is looking at linking data in the field of Healthcare technology, making the DH the first Government department to take the approach in this field.
+        
+        <h2>What\'s in it for you?</h2>
+        A fully operational linked data system&nbsp;allows you to access healthcare technology data about who is doing what, where they\'re doing it, what they\'re doing, what technology they\'re using and how. You will also be able to make your own data freely available so that others can link to it and use it to support and develop innovations.
+        
+        The NIC will be developing a first set of tools that will find and link relevant data to give you more meaningful results. The aim is to help innovators and commissioners in health, industry and Government find the answers to all their questions about innovation related to people, places and technologies in their respective fields.',
     'teaser' => 'The NIC is developing new web search tools to help NHS clinicians, managers and commissioners, industry and Government departments discover more meaningful information about Healthcare technology innovation.
-      
-',
+        ',
     'log' => '',
-    'revision_timestamp' => '1301427668',
+    'revision_timestamp' => '1301430024',
     'format' => '2',
     'name' => '',
     'picture' => '',
     'data' => NULL,
     'rdf' => array(),
     'path' => 'page/linked-data-applications-platform-innovation',
-    'last_comment_timestamp' => '1301427344',
+    'last_comment_timestamp' => '1301429866',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
@@ -60,7 +59,7 @@ function datashuttle_uuid_features_default_content() {
     'uid' => '0',
     'status' => '1',
     'created' => '1301321627',
-    'changed' => '1301427668',
+    'changed' => '1301430053',
     'comment' => '0',
     'promote' => '1',
     'moderate' => '0',
@@ -72,14 +71,14 @@ function datashuttle_uuid_features_default_content() {
     'body' => '<div style="width:425px" id="__ss_4476016"><object id="__sse4476016" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=6whyisthenicusinglinkeddata-100611111239-phpapp02-video&stripped_title=6-why-is-the-nic-using-linked-data&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4476016" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=6whyisthenicusinglinkeddata-100611111239-phpapp02-video&stripped_title=6-why-is-the-nic-using-linked-data&autoplay=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></div>',
     'teaser' => '<div style="width:425px" id="__ss_4476016"><object id="__sse4476016" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=6whyisthenicusinglinkeddata-100611111239-phpapp02-video&stripped_title=6-why-is-the-nic-using-linked-data&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4476016" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=6whyisthenicusinglinkeddata-100611111239-phpapp02-video&stripped_title=6-why-is-the-nic-using-linked-data&autoplay=0" type="applica',
     'log' => '',
-    'revision_timestamp' => '1301427668',
+    'revision_timestamp' => '1301430053',
     'format' => '2',
     'name' => '',
     'picture' => '',
     'data' => NULL,
     'rdf' => array(),
     'path' => 'video/why-nic-using-linked-data',
-    'last_comment_timestamp' => '1301427344',
+    'last_comment_timestamp' => '1301429866',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
@@ -94,26 +93,26 @@ function datashuttle_uuid_features_default_content() {
     'uid' => '0',
     'status' => '1',
     'created' => '1301331741',
-    'changed' => '1301427668',
+    'changed' => '1301429866',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
     'sticky' => '0',
     'tnid' => '0',
     'translate' => '0',
-    'revision_uid' => '1',
+    'revision_uid' => '0',
     'title' => 'Introduction to Linked Data: How Linked Data can improve quality and productivity',
     'body' => '<div style="width:425px" id="__ss_4491582"><object id="__sse4491582" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=18howlinkeddatacanimprovequalityproductivity-100614013256-phpapp01-video&stripped_title=18-how-linked-data-can-improve-quality-productivity&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4491582" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=18howlinkeddatacanimprovequalityproductivity-100614013256-phpapp01-video&stripped_title=18-how-linked-data-can-improve-quality-productivity&autoplay=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></div>',
     'teaser' => '<div style="width:425px" id="__ss_4491582"><object id="__sse4491582" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=18howlinkeddatacanimprovequalityproductivity-100614013256-phpapp01-video&stripped_title=18-how-linked-data-can-improve-quality-productivity&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4491582" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=18howlinkeddatacanimprovequalityproductivity-100614013256-phpapp01-video&stripped_title=18-how-li',
     'log' => '',
-    'revision_timestamp' => '1301427668',
+    'revision_timestamp' => '1301429866',
     'format' => '2',
     'name' => '',
     'picture' => '',
     'data' => NULL,
     'rdf' => array(),
     'path' => 'video/introduction-linked-data-how-linked-data-can-improve-quality-and-productivity',
-    'last_comment_timestamp' => '1301427344',
+    'last_comment_timestamp' => '1301429866',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
@@ -128,26 +127,26 @@ function datashuttle_uuid_features_default_content() {
     'uid' => '0',
     'status' => '1',
     'created' => '1301331815',
-    'changed' => '1301427668',
+    'changed' => '1301429866',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
     'sticky' => '0',
     'tnid' => '0',
     'translate' => '0',
-    'revision_uid' => '1',
+    'revision_uid' => '0',
     'title' => 'Introduction to Linked Data: Discussions and decisions',
     'body' => '<div style="width:425px" id="__ss_4491585"><object id="__sse4491585" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=7linkeddatadiscussionsdecisions-100614013119-phpapp02-video&stripped_title=7-linked-data-discussions-decisions&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4491585" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=7linkeddatadiscussionsdecisions-100614013119-phpapp02-video&stripped_title=7-linked-data-discussions-decisions&autoplay=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></div>',
     'teaser' => '<div style="width:425px" id="__ss_4491585"><object id="__sse4491585" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=7linkeddatadiscussionsdecisions-100614013119-phpapp02-video&stripped_title=7-linked-data-discussions-decisions&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4491585" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=7linkeddatadiscussionsdecisions-100614013119-phpapp02-video&stripped_title=7-linked-data-discussions-decisions&autoplay=0" typ',
     'log' => '',
-    'revision_timestamp' => '1301427668',
+    'revision_timestamp' => '1301429866',
     'format' => '2',
     'name' => '',
     'picture' => '',
     'data' => NULL,
     'rdf' => array(),
     'path' => 'video/introduction-linked-data-discussions-and-decisions',
-    'last_comment_timestamp' => '1301427344',
+    'last_comment_timestamp' => '1301429866',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
@@ -162,26 +161,26 @@ function datashuttle_uuid_features_default_content() {
     'uid' => '0',
     'status' => '1',
     'created' => '1301331867',
-    'changed' => '1301427668',
+    'changed' => '1301429866',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
     'sticky' => '0',
     'tnid' => '0',
     'translate' => '0',
-    'revision_uid' => '1',
+    'revision_uid' => '0',
     'title' => 'Introduction to Linked Data: Making connections',
     'body' => '<div style="width:425px" id="__ss_4487953"><object id="__sse4487953" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=10linkeddata-makingconnections-100613102201-phpapp01-video&stripped_title=10-linked-data-making-connections&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4487953" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=10linkeddata-makingconnections-100613102201-phpapp01-video&stripped_title=10-linked-data-making-connections&autoplay=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></div>',
     'teaser' => '<div style="width:425px" id="__ss_4487953"><object id="__sse4487953" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=10linkeddata-makingconnections-100613102201-phpapp01-video&stripped_title=10-linked-data-making-connections&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4487953" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=10linkeddata-makingconnections-100613102201-phpapp01-video&stripped_title=10-linked-data-making-connections&autoplay=0" type="app',
     'log' => '',
-    'revision_timestamp' => '1301427668',
+    'revision_timestamp' => '1301429866',
     'format' => '2',
     'name' => '',
     'picture' => '',
     'data' => NULL,
     'rdf' => array(),
     'path' => 'video/introduction-linked-data-making-connections',
-    'last_comment_timestamp' => '1301427344',
+    'last_comment_timestamp' => '1301429866',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
@@ -196,26 +195,26 @@ function datashuttle_uuid_features_default_content() {
     'uid' => '0',
     'status' => '1',
     'created' => '1301331948',
-    'changed' => '1301427668',
+    'changed' => '1301429866',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
     'sticky' => '0',
     'tnid' => '0',
     'translate' => '0',
-    'revision_uid' => '1',
+    'revision_uid' => '0',
     'title' => 'Introduction to Linked Data: Short and meaningful',
     'body' => '<div style="width:425px" id="__ss_4487952"><object id="__sse4487952" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=12linkeddata-shortmeaningful-100613102243-phpapp02-video&stripped_title=12-linked-data-short-meaningful&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4487952" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=12linkeddata-shortmeaningful-100613102243-phpapp02-video&stripped_title=12-linked-data-short-meaningful&autoplay=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object></div>',
     'teaser' => '<div style="width:425px" id="__ss_4487952"><object id="__sse4487952" width="425" height="355"><param name="movie" value="http://static.slidesharecdn.com/swf/playerv.swf?doc=12linkeddata-shortmeaningful-100613102243-phpapp02-video&stripped_title=12-linked-data-short-meaningful&autoplay=0" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed name="__sse4487952" src="http://static.slidesharecdn.com/swf/playerv.swf?doc=12linkeddata-shortmeaningful-100613102243-phpapp02-video&stripped_title=12-linked-data-short-meaningful&autoplay=0" type="application',
     'log' => '',
-    'revision_timestamp' => '1301427668',
+    'revision_timestamp' => '1301429866',
     'format' => '2',
     'name' => '',
     'picture' => '',
     'data' => NULL,
     'rdf' => array(),
     'path' => 'video/introduction-linked-data-short-and-meaningful',
-    'last_comment_timestamp' => '1301427344',
+    'last_comment_timestamp' => '1301429866',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
@@ -230,42 +229,42 @@ function datashuttle_uuid_features_default_content() {
     'uid' => '0',
     'status' => '1',
     'created' => '1301332471',
-    'changed' => '1301427668',
+    'changed' => '1301429866',
     'comment' => '0',
     'promote' => '0',
     'moderate' => '0',
     'sticky' => '0',
     'tnid' => '0',
     'translate' => '0',
-    'revision_uid' => '1',
+    'revision_uid' => '0',
     'title' => 'Tim Berners-Lee on the next Web, at TED',
     'body' => '<p>
-      <object width="446" height="326">
-      <param name="movie" value="http://video.ted.com/assets/player/swf/EmbedPlayer.swf" />
-      <param name="allowFullScreen" value="true" />
-      <param name="allowScriptAccess" value="always" />
-      <param name="wmode" value="transparent" />
-      <param name="bgColor" value="#ffffff" />
-      <param name="flashvars" value="vu=http://video.ted.com/talks/dynamic/TimBerners-Lee_2009-medium.flv&amp;su=http://images.ted.com/images/ted/tedindex/embed-posters/TimBerners-Lee-2009.embed_thumbnail.jpg&amp;vw=432&amp;vh=240&amp;ap=0&amp;ti=484&amp;introDuration=16500&amp;adDuration=4000&amp;postAdDuration=2000&amp;adKeys=talk=tim_berners_lee_on_the_next_web;year=2009;theme=what_s_next_in_tech;event=TED2009;&amp;preAdTag=tconf.ted/embed;tile=1;sz=512x288;" /><embed type="application/x-shockwave-flash" width="446" height="326" src="http://video.ted.com/assets/player/swf/EmbedPlayer.swf" pluginspace="http://www.macromedia.com/go/getflashplayer" wmode="transparent" bgcolor="#ffffff" allowfullscreen="true" allowscriptaccess="always" flashvars="vu=http://video.ted.com/talks/dynamic/TimBerners-Lee_2009-medium.flv&amp;su=http://images.ted.com/images/ted/tedindex/embed-posters/TimBerners-Lee-2009.embed_thumbnail.jpg&amp;vw=432&amp;vh=240&amp;ap=0&amp;ti=484&amp;introDuration=16500&amp;adDuration=4000&amp;postAdDuration=2000&amp;adKeys=talk=tim_berners_lee_on_the_next_web;year=2009;theme=what_s_next_in_tech;event=TED2009;"></embed>
-      </object>
-      </p>',
+        <object width="446" height="326">
+        <param name="movie" value="http://video.ted.com/assets/player/swf/EmbedPlayer.swf" />
+        <param name="allowFullScreen" value="true" />
+        <param name="allowScriptAccess" value="always" />
+        <param name="wmode" value="transparent" />
+        <param name="bgColor" value="#ffffff" />
+        <param name="flashvars" value="vu=http://video.ted.com/talks/dynamic/TimBerners-Lee_2009-medium.flv&amp;su=http://images.ted.com/images/ted/tedindex/embed-posters/TimBerners-Lee-2009.embed_thumbnail.jpg&amp;vw=432&amp;vh=240&amp;ap=0&amp;ti=484&amp;introDuration=16500&amp;adDuration=4000&amp;postAdDuration=2000&amp;adKeys=talk=tim_berners_lee_on_the_next_web;year=2009;theme=what_s_next_in_tech;event=TED2009;&amp;preAdTag=tconf.ted/embed;tile=1;sz=512x288;" /><embed type="application/x-shockwave-flash" width="446" height="326" src="http://video.ted.com/assets/player/swf/EmbedPlayer.swf" pluginspace="http://www.macromedia.com/go/getflashplayer" wmode="transparent" bgcolor="#ffffff" allowfullscreen="true" allowscriptaccess="always" flashvars="vu=http://video.ted.com/talks/dynamic/TimBerners-Lee_2009-medium.flv&amp;su=http://images.ted.com/images/ted/tedindex/embed-posters/TimBerners-Lee-2009.embed_thumbnail.jpg&amp;vw=432&amp;vh=240&amp;ap=0&amp;ti=484&amp;introDuration=16500&amp;adDuration=4000&amp;postAdDuration=2000&amp;adKeys=talk=tim_berners_lee_on_the_next_web;year=2009;theme=what_s_next_in_tech;event=TED2009;"></embed>
+        </object>
+        </p>',
     'teaser' => '<p>
-      <object width="446" height="326">
-      <param name="movie" value="http://video.ted.com/assets/player/swf/EmbedPlayer.swf" />
-      <param name="allowFullScreen" value="true" />
-      <param name="allowScriptAccess" value="always" />
-      <param name="wmode" value="transparent" />
-      <param name="bgColor" value="#ffffff" />
-',
+        <object width="446" height="326">
+        <param name="movie" value="http://video.ted.com/assets/player/swf/EmbedPlayer.swf" />
+        <param name="allowFullScreen" value="true" />
+        <param name="allowScriptAccess" value="always" />
+        <param name="wmode" value="transparent" />
+        <param name="bgColor" value="#ffffff" />
+  ',
     'log' => '',
-    'revision_timestamp' => '1301427668',
+    'revision_timestamp' => '1301429866',
     'format' => '2',
     'name' => '',
     'picture' => '',
     'data' => NULL,
     'rdf' => array(),
     'path' => 'video/tim-berners-lee-next-web-ted',
-    'last_comment_timestamp' => '1301427344',
+    'last_comment_timestamp' => '1301429866',
     'last_comment_name' => NULL,
     'comment_count' => '0',
     'taxonomy' => array(),
