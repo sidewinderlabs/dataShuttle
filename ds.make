@@ -3,7 +3,7 @@ core = 6.x
 
 api = 2
 
-includes[ldp] = "https://github.com/johngriffin/ldp-kit/raw/master/ldp.make"
+includes[ldp] = "https://github.com/sidewinderlabs/linked-data-platform/raw/master/ldp.make"
 
 
 projects[rubik][version] = "3.0-beta2"
