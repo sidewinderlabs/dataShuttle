@@ -42,6 +42,8 @@ dependencies[] = "uuid_features"
 dependencies[] = "views"
 dependencies[] = "views_content"
 dependencies[] = "views_ui"
+dependencies[] = "ldp_mortality_indicators"
+
 description = "dataShuttle base configuration"
 features[context][] = "home"
 features[context][] = "home_section"

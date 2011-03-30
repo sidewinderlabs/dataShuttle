@@ -35,7 +35,8 @@ function datashuttle_uuid_features_default_content() {
         
         The NIC will be developing a first set of tools that will find and link relevant data to give you more meaningful results. The aim is to help innovators and commissioners in health, industry and Government find the answers to all their questions about innovation related to people, places and technologies in their respective fields.',
     'teaser' => 'The NIC is developing new web search tools to help NHS clinicians, managers and commissioners, industry and Government departments discover more meaningful information about Healthcare technology innovation.
-        ',
+        
+',
     'log' => '',
     'revision_timestamp' => '1301430024',
     'format' => '2',
@@ -50,7 +51,7 @@ function datashuttle_uuid_features_default_content() {
     'taxonomy' => array(),
     'uuid' => '44169c2c-ab80-102e-85e7-000c29185f7f',
     'revision_uuid' => '4416cecc-ab80-102e-85e7-000c29185f7f',
-    'pathauto_perform_alias' => FALSE,
+    'pathauto_perform_alias' => TRUE,
     'date' => '2011-03-28 15:12:33 +0100',
   );
   $nodes[] = array(
@@ -84,7 +85,7 @@ function datashuttle_uuid_features_default_content() {
     'taxonomy' => array(),
     'uuid' => '4416a4d8-ab80-102e-85e7-000c29185f7f',
     'revision_uuid' => '4416d5d4-ab80-102e-85e7-000c29185f7f',
-    'pathauto_perform_alias' => FALSE,
+    'pathauto_perform_alias' => TRUE,
     'date' => '2011-03-28 15:13:47 +0100',
   );
   $nodes[] = array(
@@ -118,7 +119,7 @@ function datashuttle_uuid_features_default_content() {
     'taxonomy' => array(),
     'uuid' => '4416aa82-ab80-102e-85e7-000c29185f7f',
     'revision_uuid' => '4416db4c-ab80-102e-85e7-000c29185f7f',
-    'pathauto_perform_alias' => FALSE,
+    'pathauto_perform_alias' => TRUE,
     'date' => '2011-03-28 18:02:21 +0100',
   );
   $nodes[] = array(
@@ -152,7 +153,7 @@ function datashuttle_uuid_features_default_content() {
     'taxonomy' => array(),
     'uuid' => '4416b004-ab80-102e-85e7-000c29185f7f',
     'revision_uuid' => '4416e0b0-ab80-102e-85e7-000c29185f7f',
-    'pathauto_perform_alias' => FALSE,
+    'pathauto_perform_alias' => TRUE,
     'date' => '2011-03-28 18:03:35 +0100',
   );
   $nodes[] = array(
@@ -186,7 +187,7 @@ function datashuttle_uuid_features_default_content() {
     'taxonomy' => array(),
     'uuid' => '4416b57c-ab80-102e-85e7-000c29185f7f',
     'revision_uuid' => '4416e60a-ab80-102e-85e7-000c29185f7f',
-    'pathauto_perform_alias' => FALSE,
+    'pathauto_perform_alias' => TRUE,
     'date' => '2011-03-28 18:04:27 +0100',
   );
   $nodes[] = array(
@@ -220,7 +221,7 @@ function datashuttle_uuid_features_default_content() {
     'taxonomy' => array(),
     'uuid' => '4416bae0-ab80-102e-85e7-000c29185f7f',
     'revision_uuid' => '4416eb5a-ab80-102e-85e7-000c29185f7f',
-    'pathauto_perform_alias' => FALSE,
+    'pathauto_perform_alias' => TRUE,
     'date' => '2011-03-28 18:05:48 +0100',
   );
   $nodes[] = array(
@@ -270,7 +271,7 @@ function datashuttle_uuid_features_default_content() {
     'taxonomy' => array(),
     'uuid' => '4416c04e-ab80-102e-85e7-000c29185f7f',
     'revision_uuid' => '4416f0b4-ab80-102e-85e7-000c29185f7f',
-    'pathauto_perform_alias' => FALSE,
+    'pathauto_perform_alias' => TRUE,
     'date' => '2011-03-28 18:14:31 +0100',
   );
   return $nodes;
