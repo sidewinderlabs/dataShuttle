@@ -318,7 +318,7 @@ WHERE {
         
         ?s <http://purl.org/NET/scovo#dimension> ?year .
         ?year a <http://reference.data.gov.uk/def/intervals/CalendarYear> .
-        ?year rdfs:label "[year]" .
+        ?year rdfs:label ?yearlabel .
 
         ?s  <http://purl.org/NET/scovo#dimension> ?gender .
         ?gender a <http://purl.org/linked-data/sdmx/2009/code#Sex> .
@@ -333,6 +333,8 @@ WHERE {
     ?lad a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> .
   }
 FILTER(xsd:int(?value) > 0)
+FILTER(xsd:int(?yearlabel) = [year])
+
 
 }',
   );
