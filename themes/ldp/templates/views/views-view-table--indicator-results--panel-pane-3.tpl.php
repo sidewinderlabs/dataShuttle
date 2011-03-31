@@ -16,24 +16,28 @@
  */
 ?>
 
-<?php if ($_GET['display'] == 'views-mode-chart') {?>
-
 <?php
   $highlight = '';
 	//Find the index value of area to highligh
-  foreach ($rows as $key => $row){
-    if ($row['name'] == check_plain($_GET['highlight'])){
+  $topvalue = 0;
+	foreach ($rows as $key => $row){
+    if ($row['areacode'] == check_plain($_GET['highlight'])){
       $highlight = $key;
     }
+		if($row['value'] > $topvalue){
+			$topvalue = $row['value'];
+		}
   }
+	
 ?>
 <script type="text/javascript">
 			// <![CDATA[
     var data = [
 			<?php foreach ($rows as $row) { ?>
-      	{ value: <?php print $row['value']?> , label: "<?php print $row['name']?>" },      
+      	{ value: <?php print $row['value']?> , label: "<?php print $row['areacode']?>" },
 			<?php } ?> 
 			];
+		var topvalue = <?php print $topvalue; ?>;
 			$(document).ready(function() {
 				try {
 					barchart.setOptions({
@@ -43,11 +47,11 @@
 					});
 					barchart.load(data);
 					barchart.highlightItem(<?php print $highlight ?>);
-					barchart.draw($('#chart'), $('#overview'), $('#detail'));
+					barchart.draw($('#chart'), $('#overview'), $('#detail'), topvalue);
 				} catch(e) {
 					alert('Exception: ' + e.message);
 				}
-				$('table.views-table').hide();
+				//$('table.views-table').hide();
 			});
 			// ]]>
 </script>
@@ -62,7 +66,6 @@
 			</div>
 </div>
 <div style="clear:both"></div>
-<?php } ?>
 
 
 <?php
@@ -73,29 +76,5 @@
 //print theme('flot_graph', array(), array($d1), array($bars));
 ?>
 
-<table class="<?php print $class; ?>">
-  <?php if (!empty($title)) : ?>
-    <caption><?php print $title; ?></caption>
-  <?php endif; ?>
-  <thead>
-    <tr>
-      <?php foreach ($header as $field => $label): ?>
-        <th class="views-field views-field-<?php print $fields[$field]; ?>">
-          <?php print $label; ?>
-        </th>
-      <?php endforeach; ?>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($rows as $count => $row): ?>
-      <tr class="<?php print implode(' ', $row_classes[$count]); ?>">
-        <?php foreach ($row as $field => $content): ?>
-          <td class="views-field views-field-<?php print $fields[$field]; ?>">
-            <?php print $content; ?>
-          </td>
-        <?php endforeach; ?>
-      </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
+
 

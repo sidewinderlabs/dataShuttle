@@ -996,10 +996,12 @@ div.view-ohio-health-problem table.views-view-grid div.views-field-item-count {
 
 .page-indicator li.viewsresults-tab-2{
 	width:45px;
+	display:inline;
 }
 
 .page-indicator li.viewsresults-tab-3{
 	width:45px;
+	display:inline;
 }
 
 
