@@ -17,3 +17,6 @@ projects[jake][version] = 1.0-beta15
 
 projects[menu_block][subdir] = "contrib"
 projects[menu_block][version] = "2.4"
+
+projects[compact_forms][subdir] = "contrib"
+projects[compact_forms][version] = "1.3"
