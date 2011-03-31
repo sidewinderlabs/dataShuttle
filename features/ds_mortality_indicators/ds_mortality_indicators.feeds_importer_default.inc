@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_feeds_importer_default().
  */
-function ldp_mortality_indicators_feeds_importer_default() {
+function ds_mortality_indicators_feeds_importer_default() {
   $export = array();
   $feeds_importer = new stdClass;
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */

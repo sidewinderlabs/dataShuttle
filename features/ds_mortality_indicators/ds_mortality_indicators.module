@@ -1,0 +1,3 @@
+<?php
+
+include_once('ds_mortality_indicators.features.inc');

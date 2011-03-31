@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_views_default_views().
  */
-function ldp_mortality_indicators_views_default_views() {
+function ds_mortality_indicators_views_default_views() {
   $views = array();
 
   // Exported view: indicator_details

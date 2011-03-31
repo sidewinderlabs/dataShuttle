@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_ctools_plugin_api().
  */
-function ldp_mortality_indicators_ctools_plugin_api() {
+function ds_mortality_indicators_ctools_plugin_api() {
   list($module, $api) = func_get_args();
   if ($module == "context" && $api == "context") {
     return array("version" => 3);
@@ -22,7 +22,7 @@ function ldp_mortality_indicators_ctools_plugin_api() {
 /**
  * Implementation of hook_node_info().
  */
-function ldp_mortality_indicators_node_info() {
+function ds_mortality_indicators_node_info() {
   $items = array(
     'indicator' => array(
       'name' => t('Indicator'),
@@ -42,7 +42,7 @@ function ldp_mortality_indicators_node_info() {
 /**
  * Implementation of hook_views_api().
  */
-function ldp_mortality_indicators_views_api() {
+function ds_mortality_indicators_views_api() {
   return array(
     'api' => '3.0-alpha1',
   );

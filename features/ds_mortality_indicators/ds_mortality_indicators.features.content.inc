@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_content_default_fields().
  */
-function ldp_mortality_indicators_content_default_fields() {
+function ds_mortality_indicators_content_default_fields() {
   $fields = array();
 
   // Exported field: field_icd10

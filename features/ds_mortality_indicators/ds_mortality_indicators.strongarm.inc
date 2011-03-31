@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_strongarm().
  */
-function ldp_mortality_indicators_strongarm() {
+function ds_mortality_indicators_strongarm() {
   $export = array();
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
