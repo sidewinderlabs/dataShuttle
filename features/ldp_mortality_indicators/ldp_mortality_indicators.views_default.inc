@@ -294,7 +294,7 @@ function ldp_mortality_indicators_views_default_views() {
   
 /* Display: Defaults */
   $handler = $view->new_display('default', 'Defaults', 'default');
-  $handler->display->display_options['title'] = 'Table';
+  $handler->display->display_options['title'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -442,23 +442,23 @@ else return \'2008\';';
 /* Display: Content pane: graph display */
   $handler = $view->new_display('panel_pane', 'Content pane: graph display', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Chart';
+  $handler->display->display_options['title'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
   $handler->display->display_options['argument_input'] = array(
-    'icd10rangeuri' => array(
+    'icdcode' => array(
       'type' => 'panel',
-      'context' => 'node.field_icd10-raw',
+      'context' => 'string.html_safe',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'SPARQL: icd10rangeuri',
+      'label' => 'SPARQL: icdcode',
     ),
-    'yearuri' => array(
+    'year' => array(
       'type' => 'panel',
-      'context' => 'node_add_form.type',
+      'context' => 'string.html_safe',
       'context_optional' => 0,
       'panel' => '3',
       'fixed' => '',
-      'label' => 'SPARQL: yearuri',
+      'label' => 'SPARQL: year',
     ),
   );
 
