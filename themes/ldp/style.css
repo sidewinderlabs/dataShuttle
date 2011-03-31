@@ -1267,3 +1267,7 @@ a.logo {
 .pane-title {
   font-weight:bold;
 }
+
+.views-table th {
+font-weight:bold;
+}
