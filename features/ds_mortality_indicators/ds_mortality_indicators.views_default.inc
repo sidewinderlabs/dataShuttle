@@ -322,20 +322,18 @@ WHERE {
 
         ?s  <http://purl.org/NET/scovo#dimension> ?gender .
         ?gender a <http://purl.org/linked-data/sdmx/2009/code#Sex> .
-        ?gender rdfs:label ?genderlabel .
+        ?gender rdfs:label "M".
 
         ?s  <http://purl.org/NET/scovo#dimension> ?icdcode .
         ?icdcode a <http://purl.bioontology.org/ontology/ICD10> .
         ?icdcode rdfs:label "[icdcode]" .
 
         graph ?lad {
-    ?lad <http://www.w3.org/2004/02/skos/core#altLabel> ?areacode .
-    ?lad a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> .
-  }
+            ?lad <http://www.w3.org/2004/02/skos/core#altLabel> ?areacode .
+            ?lad a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> .
+        }
 FILTER(xsd:int(?value) > 0)
 FILTER(xsd:int(?yearlabel) = [year])
-
-
 }',
   );
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -376,6 +374,7 @@ FILTER(xsd:int(?yearlabel) = [year])
   $handler->display->display_options['fields']['areacode']['id'] = 'areacode';
   $handler->display->display_options['fields']['areacode']['table'] = 'sparql_ep';
   $handler->display->display_options['fields']['areacode']['field'] = 'areacode';
+  $handler->display->display_options['fields']['areacode']['label'] = 'Local Authority District';
   $handler->display->display_options['fields']['areacode']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['areacode']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['areacode']['alter']['trim'] = 0;
@@ -391,6 +390,7 @@ FILTER(xsd:int(?yearlabel) = [year])
   $handler->display->display_options['fields']['value']['id'] = 'value';
   $handler->display->display_options['fields']['value']['table'] = 'sparql_ep';
   $handler->display->display_options['fields']['value']['field'] = 'value';
+  $handler->display->display_options['fields']['value']['label'] = 'Value';
   $handler->display->display_options['fields']['value']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['value']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['value']['alter']['trim'] = 0;
@@ -506,7 +506,8 @@ WHERE {
         ?s <http://purl.org/NET/scovo#dimension> ?year .
         ?year a <http://reference.data.gov.uk/def/intervals/CalendarYear> .
         ?year rdfs:label ?yearlabel .
-}',
+}
+ORDER BY DESC(?yearlabel)',
   );
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
