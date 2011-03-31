@@ -299,7 +299,7 @@ function ldp_mortality_indicators_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options'] = array(
-    'endpoint_url' => 'http://192.168.2.13:8900/sparql',
+    'endpoint_url' => 'http://ec2-79-125-59-17.eu-west-1.compute.amazonaws.com:8890/sparql',
     'dataset_url' => '',
     'endpoint_read_key' => '',
     'handwritten_query' => 1,
@@ -315,9 +315,7 @@ WHERE {
         ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?value .
         
         ?s <http://purl.org/NET/scovo#dimension> ?lad .
-        ?lad a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> .
-        ?lad rdfs:label ?areacode .
-
+        
         ?s <http://purl.org/NET/scovo#dimension> ?year .
         ?year a <http://reference.data.gov.uk/def/intervals/CalendarYear> .
         ?year rdfs:label "[year]" .
@@ -330,6 +328,10 @@ WHERE {
         ?icdcode a <http://purl.bioontology.org/ontology/ICD10> .
         ?icdcode rdfs:label "[icdcode]" .
 
+        graph ?lad {
+    ?lad <http://www.w3.org/2004/02/skos/core#altLabel> ?areacode .
+    ?lad a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> .
+  }
 FILTER(xsd:int(?value) > 0)
 
 }',
@@ -482,7 +484,7 @@ else return \'2008\';';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options'] = array(
-    'endpoint_url' => 'http://192.168.2.13:8900/sparql',
+    'endpoint_url' => 'http://ec2-79-125-59-17.eu-west-1.compute.amazonaws.com:8890/sparql',
     'dataset_url' => '',
     'endpoint_read_key' => '',
     'handwritten_query' => 1,
