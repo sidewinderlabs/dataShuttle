@@ -17,8 +17,8 @@ stylesheets[screen][] = "css/override-style.css"
 stylesheets[screen][] = "css/theme-dev.css"
 
 scripts[] = "js/ldp.js"
-scripts[] = "../../libraries/flot/jquery.flot.js"
-scripts[] = "../../libraries/flot/jquery.flot.navigate.js"
+scripts[] = "js/jquery.flot.js"
+scripts[] = "js/jquery.flot.navigate.js"
 scripts[] = "js/flot-bar-chart.js"
 ;scripts[] = "js/grid.js"
 
