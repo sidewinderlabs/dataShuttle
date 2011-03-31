@@ -244,6 +244,10 @@ body.section-home h2.node-title {
   float: right;
 }
 
+body.section-home #page-tools div.block-search {
+  margin-top:-29px;
+}
+
 #page-tools div.block-search .block-title {
   display:none;
 }
