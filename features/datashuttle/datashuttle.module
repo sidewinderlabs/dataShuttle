@@ -6,7 +6,7 @@ include_once('datashuttle.features.inc');
  * Implentation of hook_nodeapi
  * When a user tries to view an indicator node, redirect them to the ctools indicator page
  */
-function ldp_mortality_indicators_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+function datashuttle_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   if ($node->type == 'indicator' && $op =='view' && $a4 == TRUE) {
     $icd10 = $node->field_icd10[0]['value'];
     $geounit = $node->field_indicator_geo_unit[0]['value'];
