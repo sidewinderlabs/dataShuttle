@@ -101,6 +101,12 @@ function datashuttle_context_default_contexts() {
           'region' => 'page_tools',
           'weight' => 0,
         ),
+        'search-0' => array(
+          'module' => 'search',
+          'delta' => 0,
+          'region' => 'page_tools',
+          'weight' => 1,
+        ),
       ),
     ),
   );
