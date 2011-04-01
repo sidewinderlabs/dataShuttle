@@ -24,6 +24,7 @@
     if ($row['areacode'] == check_plain($_GET['highlight'])){
       $highlight = $key;
     }
+    $row['value'] = ($row['value'] == 'n/a') ? 0 : $row['value'];
 		if($row['value'] > $topvalue){
 			$topvalue = $row['value'];
 		}
@@ -33,7 +34,9 @@
 <script type="text/javascript">
 			// <![CDATA[
     var data = [
-			<?php foreach ($rows as $row) { ?>
+			<?php foreach ($rows as $row) {
+			        $row['value'] = ($row['value'] == 'n/a') ? 0 : $row['value'];
+      ?>
       	{ value: <?php print $row['value']?> , label: "<?php print $row['areacode']?>" },
 			<?php } ?> 
 			];
