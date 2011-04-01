@@ -230,7 +230,7 @@ function ds_mortality_indicators_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['title']['alter']['make_link'] = 1;
-  $handler->display->display_options['fields']['title']['alter']['path'] = 'indicator/[field_icd10_value]/[field_indicator_subject_value]/[field_indicator_geo_unit_value]/year/2008';
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'indicator/[field_icd10_value]/[field_indicator_subject_value]/[field_indicator_geo_unit_value]/year/2009';
   $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 1;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 1;
