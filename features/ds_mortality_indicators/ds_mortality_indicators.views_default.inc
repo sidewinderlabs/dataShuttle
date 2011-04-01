@@ -310,31 +310,37 @@ prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 prefix skos: <http://www.w3.org/2004/02/skos/core#>',
-    'select_clause' => 'SELECT  ?value ?areacode 
+    'select_clause' => 'SELECT ?lad ?areacode ?year ?icdcode sum(xsd:int(?gendervalue)) as ?value
 WHERE { 
-        ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?value .
-        
-        ?s <http://purl.org/NET/scovo#dimension> ?lad .
-        
-        ?s <http://purl.org/NET/scovo#dimension> ?year .
-        ?year a <http://reference.data.gov.uk/def/intervals/CalendarYear> .
-        ?year rdfs:label ?yearlabel .
+  [
+     <http://purl.org/NET/scovo#dimension> ?lad ;
 
-        ?s  <http://purl.org/NET/scovo#dimension> ?gender .
-        ?gender a <http://purl.org/linked-data/sdmx/2009/code#Sex> .
-        ?gender rdfs:label "M".
+     <http://purl.org/NET/scovo#dimension> [
+       a <http://reference.data.gov.uk/def/intervals/CalendarYear> ;
+       rdfs:label ?year
+     ] ;
 
-        ?s  <http://purl.org/NET/scovo#dimension> ?icdcode .
-        ?icdcode a <http://purl.bioontology.org/ontology/ICD10> .
-        ?icdcode rdfs:label "[icdcode]" .
+     <http://purl.org/NET/scovo#dimension> [
+       a <http://purl.org/linked-data/sdmx/2009/code#Sex> ;
+       rdfs:label ?gender
+     ] ;
 
-        graph ?lad {
-            ?lad <http://www.w3.org/2004/02/skos/core#altLabel> ?areacode .
-            ?lad a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> .
-        }
-FILTER(xsd:int(?value) > 0)
-FILTER(xsd:int(?yearlabel) = [year])
-}',
+     <http://purl.org/NET/scovo#dimension> [
+       a <http://purl.bioontology.org/ontology/ICD10> ;
+       rdfs:label ?icdcode
+     ] ;
+
+     <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> ?gendervalue
+   ] .
+
+   graph ?lad {
+     ?lad <http://www.w3.org/2004/02/skos/core#altLabel> ?areacode ;
+       a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> .
+   }
+   FILTER(xsd:int(?year) = [year])
+   FILTER(?icdcode = "[icdcode]")
+}
+',
   );
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
