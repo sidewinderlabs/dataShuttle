@@ -1269,5 +1269,9 @@ a.logo {
 }
 
 .views-table th {
-font-weight:bold;
+  font-weight:bold;
+}
+
+.views-table tr {
+  border-bottom:1px solid #FFFFFF;
 }
