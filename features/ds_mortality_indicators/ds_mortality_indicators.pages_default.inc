@@ -275,6 +275,23 @@ function ds_mortality_indicators_default_page_manager_pages() {
     $pane->position = 1;
     $display->content['new-6'] = $pane;
     $display->panels['viewsresults'][1] = 'new-6';
+    $pane = new stdClass;
+    $pane->pid = 'new-7';
+    $pane->panel = 'viewsresults';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'indicator_results-panel_pane_2';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array();
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $display->content['new-7'] = $pane;
+    $display->panels['viewsresults'][2] = 'new-7';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;

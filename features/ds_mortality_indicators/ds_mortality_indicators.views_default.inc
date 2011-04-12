@@ -310,7 +310,7 @@ prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 prefix skos: <http://www.w3.org/2004/02/skos/core#>',
-    'select_clause' => 'SELECT ?lad ?areacode ?year ?icdcode sum(xsd:int(?gendervalue)) as ?value
+    'select_clause' => 'SELECT ?lad ?areacode ?year ?icdcode sum(xsd:int(?gendervalue)) as ?value ?lad_lat ?lad_long
 WHERE { 
   [
      <http://purl.org/NET/scovo#dimension> ?lad ;
@@ -335,15 +335,19 @@ WHERE {
 
    graph ?lad {
      ?lad <http://www.w3.org/2004/02/skos/core#altLabel> ?areacode ;
-       a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> .
+       a <http://statistics.data.gov.uk/def/administrative-geography/LocalAuthorityDistrict> ;
+       owl:sameAs ?os_lad .
    }
+   ?os_lad <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lad_lat ;
+               <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lad_long .
    FILTER(xsd:int(?year) = [year])
    FILTER(?icdcode = "[icdcode]")
 }
 ',
   );
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'icd10rangeuri' => 'icd10rangeuri',
@@ -408,6 +412,38 @@ WHERE {
   $handler->display->display_options['fields']['value']['alter']['separator'] = '';
   $handler->display->display_options['fields']['value']['hide_empty'] = 0;
   $handler->display->display_options['fields']['value']['empty_zero'] = 0;
+  /* Field: SPARQL: lad_lat */
+  $handler->display->display_options['fields']['lad_lat']['id'] = 'lad_lat';
+  $handler->display->display_options['fields']['lad_lat']['table'] = 'sparql_ep';
+  $handler->display->display_options['fields']['lad_lat']['field'] = 'lad_lat';
+  $handler->display->display_options['fields']['lad_lat']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['lad_lat']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['lad_lat']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['lad_lat']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['lad_lat']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['lad_lat']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['lad_lat']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['lad_lat']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['lad_lat']['alter']['combine_values'] = 0;
+  $handler->display->display_options['fields']['lad_lat']['alter']['separator'] = '';
+  $handler->display->display_options['fields']['lad_lat']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['lad_lat']['empty_zero'] = 0;
+  /* Field: SPARQL: lad_long */
+  $handler->display->display_options['fields']['lad_long']['id'] = 'lad_long';
+  $handler->display->display_options['fields']['lad_long']['table'] = 'sparql_ep';
+  $handler->display->display_options['fields']['lad_long']['field'] = 'lad_long';
+  $handler->display->display_options['fields']['lad_long']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['lad_long']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['lad_long']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['lad_long']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['lad_long']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['lad_long']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['lad_long']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['lad_long']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['lad_long']['alter']['combine_values'] = 0;
+  $handler->display->display_options['fields']['lad_long']['alter']['separator'] = '';
+  $handler->display->display_options['fields']['lad_long']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['lad_long']['empty_zero'] = 0;
   /* Argument: SPARQL: icdcode */
   $handler->display->display_options['arguments']['icdcode']['id'] = 'icdcode';
   $handler->display->display_options['arguments']['icdcode']['table'] = 'sparql_ep';
@@ -453,6 +489,81 @@ else return \'2008\';';
   $handler = $view->new_display('panel_pane', 'Content pane: graph display', 'panel_pane_3');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $handler->display->display_options['argument_input'] = array(
+    'icdcode' => array(
+      'type' => 'panel',
+      'context' => 'string.html_safe',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'SPARQL: icdcode',
+    ),
+    'year' => array(
+      'type' => 'panel',
+      'context' => 'string.html_safe',
+      'context_optional' => 0,
+      'panel' => '3',
+      'fixed' => '',
+      'label' => 'SPARQL: year',
+    ),
+  );
+  
+/* Display: Openlayers Data */
+  $handler = $view->new_display('openlayers', 'Openlayers Data', 'openlayers_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Map';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'openlayers_data';
+  $handler->display->display_options['style_options']['data_source'] = array(
+    'value' => 'other_latlon',
+    'other_lat' => 'lad_lat',
+    'other_lon' => 'lad_long',
+    'openlayers_wkt' => 'areacode',
+    'other_top' => 'areacode',
+    'other_right' => 'areacode',
+    'other_bottom' => 'areacode',
+    'other_left' => 'areacode',
+    'name_field' => 'areacode',
+    'keep_orig_name_field' => 1,
+    'description_field' => '',
+    'keep_orig_desc_field' => 0,
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Argument: SPARQL: icdcode */
+  $handler->display->display_options['arguments']['icdcode']['id'] = 'icdcode';
+  $handler->display->display_options['arguments']['icdcode']['table'] = 'sparql_ep';
+  $handler->display->display_options['arguments']['icdcode']['field'] = 'icdcode';
+  $handler->display->display_options['arguments']['icdcode']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['icdcode']['style_plugin'] = 'default_summary';
+  $handler->display->display_options['arguments']['icdcode']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['icdcode']['default_argument_options']['argument'] = 'G20';
+  $handler->display->display_options['arguments']['icdcode']['replacement_type'] = 'arg';
+  /* Argument: SPARQL: year */
+  $handler->display->display_options['arguments']['year']['id'] = 'year';
+  $handler->display->display_options['arguments']['year']['table'] = 'sparql_ep';
+  $handler->display->display_options['arguments']['year']['field'] = 'year';
+  $handler->display->display_options['arguments']['year']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['year']['style_plugin'] = 'default_summary';
+  $handler->display->display_options['arguments']['year']['default_argument_type'] = 'php';
+  $handler->display->display_options['arguments']['year']['default_argument_options']['code'] = 'if (isset($_GET[\'startdate\']) && is_numeric($_GET[\'startdate\'])) {
+return $_GET[\'startdate\'];
+}
+else return \'2008\';';
+  $handler->display->display_options['arguments']['year']['replacement_type'] = 'arg';
+  
+/* Display: Content pane: Map */
+  $handler = $view->new_display('panel_pane', 'Content pane: Map', 'panel_pane_2');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Map';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'openlayers_map';
+  $handler->display->display_options['style_options']['preset'] = 'ds_indicators_map';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['argument_input'] = array(
     'icdcode' => array(
       'type' => 'panel',

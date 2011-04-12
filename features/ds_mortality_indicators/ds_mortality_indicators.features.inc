@@ -11,6 +11,12 @@ function ds_mortality_indicators_ctools_plugin_api() {
   elseif ($module == "feeds" && $api == "feeds_importer_default") {
     return array("version" => 1);
   }
+  elseif ($module == "openlayers" && $api == "openlayers_presets") {
+    return array("version" => 1);
+  }
+  elseif ($module == "openlayers" && $api == "openlayers_styles") {
+    return array("version" => 1);
+  }
   elseif ($module == "page_manager" && $api == "pages_default") {
     return array("version" => 1);
   }
