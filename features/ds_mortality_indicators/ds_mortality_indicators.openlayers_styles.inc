@@ -13,7 +13,7 @@ function ds_mortality_indicators_openlayers_styles() {
   $openlayers_styles->description = 'Point style for indicators where radius is value.';
   $openlayers_styles->data = array(
     'pointRadius' => '${value_rendered}',
-    'fillColor' => '#EE9900',
+    'fillColor' => '#000000',
     'strokeColor' => '#dedede',
     'strokeWidth' => 1,
     'fillOpacity' => 0.5,
@@ -23,7 +23,6 @@ function ds_mortality_indicators_openlayers_styles() {
     'graphicOpacity' => 1,
     'labelAlign' => 'cm',
   );
-
-  $export['indicator_point'] = $openlayers_styles;
+  $export["indicator_point"] = $openlayers_styles;
   return $export;
 }

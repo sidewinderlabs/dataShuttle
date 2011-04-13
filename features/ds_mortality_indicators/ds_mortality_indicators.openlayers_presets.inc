@@ -20,7 +20,7 @@ function ds_mortality_indicators_openlayers_presets() {
     'hide_empty_map' => 0,
     'center' => array(
       'initial' => array(
-        'centerpoint' => '-0.96679687495646, 51.91039070839',
+        'centerpoint' => '-1.812744140547, 52.348763180486',
         'zoom' => '7',
       ),
       'restrict' => array(
@@ -29,17 +29,26 @@ function ds_mortality_indicators_openlayers_presets() {
       ),
     ),
     'behaviors' => array(
+      'openlayers_plus_behavior_scalepoints' => array(
+        'min' => array(
+          'value' => '',
+          'pointRadius' => '10',
+          'fillOpacity' => '0',
+          'strokeWidth' => '',
+        ),
+        'max' => array(
+          'value' => '',
+          'pointRadius' => '10',
+          'fillOpacity' => '1',
+          'strokeWidth' => '',
+        ),
+        'method' => 'area',
+        'distinct' => '30',
+        'fields' => 'value_rendered',
+        'min_label' => '-1',
+      ),
+      'openlayers_plus_behavior_popup' => array(),
       'openlayers_behavior_attribution' => array(),
-      'openlayers_behavior_popup' => array(
-        'layers' => array(
-          'indicator_results_openlayers_1' => 0,
-        ),
-      ),
-      'openlayers_behavior_tooltip' => array(
-        'layers' => array(
-          'indicator_results_openlayers_1' => 'indicator_results_openlayers_1',
-        ),
-      ),
       'openlayers_behavior_keyboarddefaults' => array(),
       'openlayers_behavior_layerswitcher' => array(
         'ascending' => 1,
@@ -50,6 +59,10 @@ function ds_mortality_indicators_openlayers_presets() {
         'zoomWheelEnabled' => 1,
       ),
       'openlayers_behavior_panzoombar' => array(),
+      'openlayers_behavior_zoomtolayer' => array(
+        'zoomtolayer' => 'indicator_results_openlayers_1',
+        'point_zoom_level' => '5',
+      ),
     ),
     'default_layer' => 'google_normal',
     'layers' => array(
@@ -77,8 +90,9 @@ function ds_mortality_indicators_openlayers_presets() {
       'select' => 'default',
       'temporary' => 'default',
     ),
+    'preset_name' => 'ds_indicators_map',
   );
-
-  $export['ds_indicators_map'] = $openlayers_presets;
+  $export["ds_indicators_map"] = $openlayers_presets;
+  return $export;
   return $export;
 }
