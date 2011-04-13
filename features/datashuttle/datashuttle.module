@@ -15,3 +15,14 @@ function datashuttle_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     drupal_goto('indicator/' .$icd10. '/' .$subject. '/' .$geounit. '/year/2008'  );
   }
 }
+
+/**
+ * Sets the Panel page title to the title of the Indicator Node
+ */
+function datashuttle_views_pre_render(&$view) {
+  if ($view->name == "indicator_details") {
+    if ($view->result[0]->node_title != '') {
+      $view->build_info['title'] = $view->result[0]->node_title;
+    }
+  }
+}
