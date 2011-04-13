@@ -994,31 +994,32 @@ div.view-ohio-health-problem table.views-view-grid div.views-field-item-count {
   }
 */
 
-.page-indicator li.viewsresults-tab-2{
-	width:45px;
-	display:inline;
+.page-indicator li a span {
+  display: block;
+  float: left;
+  width: 33px;
+  height: 22px;
+  background: url(images/view-mode-icons.png);
+  text-indent: -9999em;
+  opacity:0.5;
 }
 
-.page-indicator li.viewsresults-tab-3{
-	width:45px;
-	display:inline;
+.page-indicator #tabs-viewsresults li.active a span,
+.page-indicator li a span:hover {
+  opacity:1;
 }
 
-
-.page-indicator .viewsresults-tab-2 a span{
-	background-image:url(images/view-mode-icons.png);
-	background-position:76px;
-	font-size:18px;
+.page-indicator .viewsresults-tab-2 a span {
+  background-position: 76px 50%;
 }
-.page-indicator .viewsresults-tab-3 a span{
-	background-image:url(images/view-mode-icons.png);
-	background-position:122px;
-	font-size:18px;
+.page-indicator .viewsresults-tab-3 a span {
+  background-position: 122px 50%;
 }
 
-.page-indicator .viewsresults-tab-2 a span{
-
+.page-indicator .viewsresults-tab-4 a span {
+  background-position: 198px 50%;
 }
+
 
   #page-tools li a.views-modes-active { background-color:#fff; }
 
