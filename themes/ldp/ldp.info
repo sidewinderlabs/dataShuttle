@@ -20,6 +20,7 @@ scripts[] = "js/ldp.js"
 scripts[] = "js/jquery.flot.js"
 scripts[] = "js/jquery.flot.navigate.js"
 scripts[] = "js/flot-bar-chart.js"
+scripts[] = "js/openlayers-centring.js"
 ;scripts[] = "js/grid.js"
 
 regions[palette] = "Palette"
