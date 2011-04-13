@@ -292,8 +292,8 @@ function ds_mortality_indicators_default_page_manager_pages() {
     $pane->position = 2;
     $display->content['new-7'] = $pane;
     $display->panels['viewsresults'][2] = 'new-7';
-  $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = '0';
+  $display->hide_title = PANELS_TITLE_PANE;
+  $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['indicators'] = $page;

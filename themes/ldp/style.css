@@ -1276,3 +1276,14 @@ a.logo {
 .views-table tr {
   border-bottom:1px solid #FFFFFF;
 }
+
+
+/*Indicator Pane fixes*/
+.pane-indicator-details-indicator-body-content h2.pane-title{
+	display:none;
+}
+
+h2.page-title{
+	line-height:26px;
+	font-size:16px;
+}
