@@ -3,38 +3,37 @@
 /**
  * Implementation of hook_context_default_contexts().
  */
-function ds_mortality_indicators_context_default_contexts() {
+function ds_topics_context_default_contexts() {
   $export = array();
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'indicators_section';
-  $context->description = 'Indicators section';
+  $context->name = 'topics_section';
+  $context->description = 'Topics Section';
   $context->tag = 'section';
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'indicators' => 'indicators',
-        'indicators/*' => 'indicators/*',
-        'indicator/*' => 'indicator/*',
+        'topics' => 'topics',
+        'topic/*' => 'topic/*',
       ),
     ),
   );
   $context->reactions = array(
-    'menu' => 'indicators',
+    'menu' => 'topics',
     'theme' => array(
       'title' => '',
       'subtitle' => '',
-      'class' => 'section-indicators',
+      'class' => 'section-topics',
     ),
   );
   $context->condition_mode = 0;
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Indicators section');
+  t('Topics Section');
   t('section');
 
-  $export['indicators_section'] = $context;
+  $export['topics_section'] = $context;
   return $export;
 }

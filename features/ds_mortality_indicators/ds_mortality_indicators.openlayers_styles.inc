@@ -23,6 +23,7 @@ function ds_mortality_indicators_openlayers_styles() {
     'graphicOpacity' => 1,
     'labelAlign' => 'cm',
   );
-  $export["indicator_point"] = $openlayers_styles;
+
+  $export['indicator_point'] = $openlayers_styles;
   return $export;
 }

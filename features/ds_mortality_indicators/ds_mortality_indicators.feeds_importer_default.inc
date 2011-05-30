@@ -65,6 +65,11 @@ function ds_mortality_indicators_feeds_importer_default() {
             'target' => 'body',
             'unique' => FALSE,
           ),
+          7 => array(
+            'source' => 'a:1:{s:33:"http://datashuttle.org/icdChapter";a:1:{s:42:"http://www.w3.org/2000/01/rdf-schema#label";a:0:{}}}',
+            'target' => 'taxonomy:features_topics',
+            'unique' => FALSE,
+          ),
         ),
         'author' => 0,
         'arc_caching' => '1',

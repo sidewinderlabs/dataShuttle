@@ -92,7 +92,7 @@ function ds_mortality_indicators_openlayers_presets() {
     ),
     'preset_name' => 'ds_indicators_map',
   );
-  $export["ds_indicators_map"] = $openlayers_presets;
-  return $export;
+
+  $export['ds_indicators_map'] = $openlayers_presets;
   return $export;
 }

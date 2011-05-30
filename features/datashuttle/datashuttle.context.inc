@@ -21,11 +21,17 @@ function datashuttle_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
+        'views-topics_listing-block_1' => array(
+          'module' => 'views',
+          'delta' => 'topics_listing-block_1',
+          'region' => 'content',
+          'weight' => 0,
+        ),
         'views-home_topstories-block_1' => array(
           'module' => 'views',
           'delta' => 'home_topstories-block_1',
           'region' => 'content',
-          'weight' => 0,
+          'weight' => 1,
         ),
       ),
     ),

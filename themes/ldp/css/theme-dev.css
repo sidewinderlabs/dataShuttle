@@ -65,39 +65,39 @@ html {
   text-align: center;
 }
 
-/* view-ohio-health-problem */
-.view-ohio-health-problem {
+/* view-topics-listing */
+.view-topics-listing {
   padding: 10px 20px;
 }
 
-.view-ohio-health-problem table.views-view-grid {
+.view-topics-listing table.views-view-grid {
     border-collapse: collapse;
     font-size: 12px;
     margin: 0;
 }
 
-.view-ohio-health-problem table.views-view-grid tr {
+.view-topics-listing table.views-view-grid tr {
   /*border: 1px dotted #000;*/
 }
-.view-ohio-health-problem table.views-view-grid td,
-.view-ohio-health-problem table.views-view-grid th {
-  padding: 5px 0;
+.view-topics-listing table.views-view-grid td,
+.view-topics-listing table.views-view-grid th {
+  padding: 5px 5px;
 }
 
-.view-ohio-health-problem table.views-view-grid tr.row-1 td {
+.view-topics-listing table.views-view-grid tr.row-1 td {
   border: 0 none;
 }
 
-.view-ohio-health-problem table.views-view-grid td a {
+.view-topics-listing table.views-view-grid td a {
   color: #666660;
 }
 
 /* temp */
-.view-ohio-health-problem .view-content {
+.view-topics-listing .view-content {
 
 }
 
-.page-topics .view-ohio-health-problem {
+.page-topics .view-topics-listing {
   background: #ececeb;
   width: 920px;
 }

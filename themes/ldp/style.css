@@ -535,16 +535,18 @@ div.navbar h2.block-title {
   }
 
 /* Topics */
-div.page-content div#block-views-a5941a795299a3f95fb58bf7754f94f9 .block-content,
-div.page-content div#context-block-views-a5941a795299a3f95fb58bf7754f94f9 .block-content {
+div.page-content div#block-views-topics_listing-block_1 .block-content,
+div.page-content div#context-block-views-topics_listing-block_1 .block-content {
   padding:0px;
 }
 
-div.page-content div#block-views-a5941a795299a3f95fb58bf7754f94f9 h2.block-title,
-div.page-content div#context-block-views-a5941a795299a3f95fb58bf7754f94f9 h2.block-title {
+div.page-content div#block-views-topics_listing-block_1 div.block-title,
+div.page-content div#context-block-views-topics_listing-block_1 div.block-title {
   color:#fff;
   background-color:#e59744;
   border-bottom:5px solid #b77936;
+  font-size:14px;
+  font-weight:bold;
 }
 
 /* Indicators */
@@ -928,14 +930,14 @@ table.views-view-grid div.views-field-item-count {
   }
 
 /* OHIO: Health Problem grid */
-div.view-ohio-health-problem table.views-view-grid div.views-field-title { font-size:12px; }
-  div.view-ohio-health-problem table.views-view-grid div.views-field-title a { color:inherit; }
-div.view-ohio-health-problem table.views-view-grid div.views-field-body { font-size:11px; }
-div.view-ohio-health-problem table.views-view-grid div.views-field-item-count {
+div.view-topics-listing table.views-view-grid div.views-field-title { font-size:12px; }
+  div.view-topics-listing table.views-view-grid div.views-field-title a { color:inherit; }
+div.view-topics-listing table.views-view-grid div.views-field-body { font-size:11px; }
+div.view-topics-listing table.views-view-grid div.views-field-item-count {
   margin:0px 0px 10px;
   color:#808078;
   }
-  div.view-ohio-health-problem table.views-view-grid div.views-field-item-count a { color:inherit; }
+  div.view-topics-listing table.views-view-grid div.views-field-item-count a { color:inherit; }
 
 /**
  * Messages ===========================================================
