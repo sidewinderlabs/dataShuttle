@@ -1,0 +1,4 @@
+name = Datashuttle Motion Charts
+description = "Creates Google motion charts for Datashuttle data"
+core = 6.x
+php = 5.1
