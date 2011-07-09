@@ -14,11 +14,20 @@ function ds_motion_chart_menu() {
   );
 }
 
-function ds_motion_chart_page() {
+function ds_motion_chart_page($area = NULL) {
   
   drupal_set_html_head('<script type="text/javascript" src="https://www.google.com/jsapi"></script>');
+  
+  if ($area == NULL) {
+    $state = '{"orderedByX":false,"duration":{"multiplier":1,"timeUnit":"D"},"nonSelectedAlpha":0.4,"iconKeySettings":[],"colorOption":"_UNIQUE_COLOR","xZoomedDataMax":418,"time":"2002","yLambda":1,"sizeOption":"106","yAxisOption":"52","xLambda":1,"iconType":"BUBBLE","xAxisOption":"55","yZoomedDataMax":9,"xZoomedIn":false,"orderedByY":false,"yZoomedIn":false,"yZoomedDataMin":0,"dimensions":{"iconDimensions":["dim0"]},"xZoomedDataMin":54,"uniColorForNonSelected":false,"showTrails":false,"playDuration":15000}';
+  }
+  else {
+    $state = '{"showTrails":false,"playDuration":15000,"yLambda":1,"duration":{"multiplier":1,"timeUnit":"D"},"yAxisOption":"52","time":"2002","orderedByX":false,"xZoomedDataMax":418,"xAxisOption":"55","sizeOption":"106","orderedByY":false,"xLambda":1,"colorOption":"_UNIQUE_COLOR","dimensions":{"iconDimensions":["dim0"]},"yZoomedDataMax":9,"xZoomedIn":false,"iconType":"BUBBLE","yZoomedIn":false,"yZoomedDataMin":0,"nonSelectedAlpha":0.4,"iconKeySettings":[{"key":{"dim0":"' .$area. '"}}],"xZoomedDataMin":54,"uniColorForNonSelected":false}';
+  }
+
+  drupal_add_js(array('ds_motion_chart' => array('initial_state' => $state)), 'setting');
   drupal_add_js(drupal_get_path('module', 'ds_motion_chart') . '/js/indicators.js');
-  drupal_add_js("$(document).ready( function() {changeData();} );", 'inline');
+  drupal_add_js("$(document).ready( function() {ds_mc_changeData();} );", 'inline');
   
   return '<div id="visualization"></div>';
 }
