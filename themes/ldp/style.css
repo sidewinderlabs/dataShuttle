@@ -921,13 +921,6 @@ table.views-view-grid td {
   border-top:1px dotted #666660;
   }
 
-/* MN Channels grid */
-table.views-view-grid div.views-field-title { font-size:18px; }
-table.views-view-grid div.views-field-body { font-size:11px; }
-table.views-view-grid div.views-field-item-count {
-  margin:0px 0px 10px;
-  color:#999;
-  }
 
 /* OHIO: Health Problem grid */
 div.view-topics-listing table.views-view-grid div.views-field-title { font-size:12px; }
@@ -1289,3 +1282,49 @@ h2.page-title{
 	line-height:26px;
 	font-size:16px;
 }
+
+
+/* view-location-listing */
+.view-location-listing {
+  padding: 10px 20px;
+}
+
+table.view-location-listing div.views-field-title {
+  font-size: 12px;
+}
+
+.view-location-listing table.views-view-grid {
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 0;
+}
+
+.view-location-listing table.views-view-grid tr {
+  /*border: 1px dotted #000;*/
+}
+.view-location-listing table.views-view-grid td,
+.view-location-listing table.views-view-grid th {
+  padding: 5px 5px;
+}
+
+.view-location-listing table.views-view-grid tr.row-1 td {
+  border: 0 none;
+}
+
+.view-location-listing table.views-view-grid td a {
+  color: #666660;
+}
+
+.view-location-listing h3 {
+  background-color:#DDDDDD;
+  margin-top:10px;
+  padding-left:10px;
+  color: #469BD1;
+  height:30px;
+  white-space:nowrap;
+  font-size:16px;
+  font-weight:bold;
+  line-height:26px;
+  border-bottom:1px solid #DDDDDD;
+}
+
