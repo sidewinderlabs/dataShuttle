@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Implementation of hook_block().
+ */
+function ds_widgets_block($op = 'list', $delta = 0) {
+  switch ($op) {
+    case 'list':
+      $blocks = array();
+      $blocks['embed']['info'] = t('DS: Embed widget');
+      return $blocks;
+    case 'view':
+      drupal_add_css(drupal_get_path('module', 'ds_widgets') . '/ds_widgets.css');
+      switch ($delta) {
+        case 'embed':
+          // Prepare embed code
+
+          $icd = arg(1);
+          $year = arg(5);
+
+          $style = 'iframe';
+          
+          $path = url('indicator_widget/' .$icd. '/' .$year, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
+          $width = 300;
+          $output = web_widgets_render_embed_code($style, $path, $width, $height);
+          $output .= '<div id="ds_widgets_preview"></div>';
+
+          // Prepare widget preview
+          $query['preview'] = 1;
+          $preview_path = url('indicator_widget/' .$icd. '/' .$year, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
+          $widget_preview['ds_widgets_preview'] = theme('web_widgets_' . $style, $preview_path, $width, $height);
+          drupal_add_js($widget_preview, 'setting');
+
+          return array('subject' => t('Embed'), 'content' => $output);
+      }
+  }
+}
+
+/**
+ * Implementation of hook_web_widgets_render_widget().
+ *
+ * Adds relevent stylesheets.
+ */
+function ds_widgets_web_widgets_render_widget() {
+  global $theme;
+  drupal_add_css(drupal_get_path('module', 'ds_widgets') . '/ds_widgets.css', 'widget');
+}
+
+/**
+ * Implementation of hook_openlayers_alter().
+ *
+ * Set the width of the map to 300 when the ds_widgets context is active.
+ */
+function ds_widgets_openlayers_alter(&$map) {
+  if (module_exists('context')) {
+    // Set width to 300 if previewing
+    if (context_get('ds_widgets', 'widget_active')) {
+      if ($_GET['preview']) {
+        $map['width'] = 300;
+      }
+      else {
+        $map['height'] = 'auto';
+      }
+    }
+  }
+}
+
+/**
+ * Implementation of hook_theme_registry_alter().
+ */
+function ds_widgets_theme_registry_alter(&$theme_registry) {
+  $path = drupal_get_path("module", "ds_widgets") . '/theme';
+
+  $theme_registry['web_widgets_iframe']['path'] = $path;
+  $theme_registry['web_widgets_iframe']['preprocess functions'][] = 'template_preprocess_ds_widgets_web_widgets_iframe';
+
+  $theme_registry['web_widgets_iframe_wrapper']['path'] = $path;
+  $theme_registry['web_widgets_iframe_wrapper']['preprocess functions'][] = 'template_preprocess_ds_widgets_web_widgets_iframe_wrapper';
+}
+
+/**
+ * Preprocessor for theme('web_widgets_iframe').
+ */
+function template_preprocess_ds_widgets_web_widgets_iframe(&$vars) {
+  $vars['site_name'] = t('from') . ' ' . variable_get('site_name', 'Drupal');
+  $vars['title'] = l(drupal_get_title(), $_GET['q'], array('absolute' => TRUE, 'attributes' => array('style' => 'color:#fff;text-decoration:none;')));
+}

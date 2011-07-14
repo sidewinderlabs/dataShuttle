@@ -1,0 +1,60 @@
+body#widget {
+  color:#666;
+  background:#c0c8d0 100% 100% no-repeat fixed;
+  }
+  
+a {
+  font-weight:bold;
+  color:#222;
+  text-decoration:none;
+  }
+
+body#widget .view-content .item-list { background:#f8f8f8; }
+
+body#widget .clear-block {
+  display:block;
+  }
+
+/**
+ * OpenLayers
+ */
+body#widget div.openlayers-map div.popup-content div.item-list,
+div.openlayers-map div.popup-content div.item-list li {
+  margin:0;
+  padding:0;
+  background:transparent;
+  }
+
+body#widget div.openlayers-map div.popup-content div.item-list ul li {
+  border:0px;
+  }
+
+body#widget div.openlayers-map div.point-content {
+  height:65px;
+  }
+
+body#widget ul.links li,
+body#widget ul.links li a { float:left; }
+
+body#widget div.view {
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  width:auto;
+  }
+
+body#widget div.openlayers-views-map,
+body#widget div.openlayers-views-map div.openlayers-map {
+  position:absolute;
+  top:0px;
+  right:0px;
+  left:0px;
+  bottom:0px;
+
+  background:#ccc;
+
+  width:auto !important;
+  height:auto !important;
+  }

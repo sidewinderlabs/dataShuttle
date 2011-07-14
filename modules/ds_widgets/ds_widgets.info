@@ -1,0 +1,6 @@
+core = "6.x"
+dependencies[] = "web_widgets"
+description = "Provides widgets that can be embedded into external sites."
+name = "Datashuttle Widgets"
+package = "Datashuttle"
+project = "ds_widgets"
