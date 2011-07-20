@@ -18,15 +18,16 @@ function ds_widgets_block($op = 'list', $delta = 0) {
           $icd = arg(1);
           $year = arg(5);
           $style = 'iframe';
+          $display = 'map';
           
-          $path = url('indicator_widget/' .$icd. '/' .$year, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
+          $path = url('indicator_widget/' .$icd. '/' .$year. '/' .$display, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
           $width = 300;
           $output = web_widgets_render_embed_code($style, $path, $width, $height);
           $output .= '<div id="ds_widgets_preview"></div>';
 
           // Prepare widget preview
           $query['preview'] = 1;
-          $preview_path = url('indicator_widget/' .$icd. '/' .$year, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
+          $preview_path = url('indicator_widget/' .$icd. '/' .$year. '/' .$display, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
           $widget_preview['ds_widgets_preview'] = theme('web_widgets_' . $style, $preview_path, $width, $height);
           drupal_add_js($widget_preview, 'setting');
 
