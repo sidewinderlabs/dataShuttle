@@ -1,4 +1,5 @@
 <?php
+include_once('ds_widgets.features.inc');
 
 /**
  * Implementation of hook_block().
@@ -14,10 +15,8 @@ function ds_widgets_block($op = 'list', $delta = 0) {
       switch ($delta) {
         case 'embed':
           // Prepare embed code
-
           $icd = arg(1);
           $year = arg(5);
-
           $style = 'iframe';
           
           $path = url('indicator_widget/' .$icd. '/' .$year, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
