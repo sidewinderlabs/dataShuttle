@@ -20,3 +20,6 @@ projects[menu_block][version] = "2.4"
 
 projects[compact_forms][subdir] = "contrib"
 projects[compact_forms][version] = "1.3"
+
+projects[web_widgets][subdir] = "contrib"
+projects[web_widgets][version] = "1.4"
