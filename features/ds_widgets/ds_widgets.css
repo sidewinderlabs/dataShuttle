@@ -37,7 +37,6 @@ body#widget ul.links li,
 body#widget ul.links li a { float:left; }
 
 body#widget div.view {
-  position:fixed;
   top:0;
   left:0;
   bottom:0;
@@ -58,3 +57,24 @@ body#widget div.openlayers-views-map div.openlayers-map {
   width:auto !important;
   height:auto !important;
   }
+  
+body#widget div.view-display-id-web_widgets_3 {
+  position:fixed;
+}
+
+div.display-tabs p a {
+  text-indent: -9999em;
+}
+
+div.display-tabs p a span {
+    background: url("images/view-mode-icons.png") repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 22px;
+    opacity: 0.5;
+    width: 33px;
+}
+
+div.display-tabs p a.map span {
+   background-position: 198px 50%;
+}

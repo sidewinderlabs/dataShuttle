@@ -18,16 +18,17 @@ function ds_widgets_block($op = 'list', $delta = 0) {
           $icd = arg(1);
           $year = arg(5);
           $style = 'iframe';
-          $display = 'map';
+          $displays = _ds_widgets_display_names();
           
-          $path = url('indicator_widget/' .$icd. '/' .$year. '/' .$display, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
-          $width = 300;
+          $path = url('indicator_widget/' .$icd. '/' .$year. '/' .$displays[0], array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
+          $width = 600;
+          $height = 500;
           $output = web_widgets_render_embed_code($style, $path, $width, $height);
           $output .= '<div id="ds_widgets_preview"></div>';
 
           // Prepare widget preview
           $query['preview'] = 1;
-          $preview_path = url('indicator_widget/' .$icd. '/' .$year. '/' .$display, array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
+          $preview_path = url('indicator_widget/' .$icd. '/' .$year. '/' .$displays[0], array('absolute' => TRUE, 'query' => $query, 'purl' => array('disabled' => TRUE)));
           $widget_preview['ds_widgets_preview'] = theme('web_widgets_' . $style, $preview_path, $width, $height);
           drupal_add_js($widget_preview, 'setting');
 
@@ -56,7 +57,7 @@ function ds_widgets_openlayers_alter(&$map) {
     // Set width to 300 if previewing
     if (context_get('ds_widgets', 'widget_active')) {
       if ($_GET['preview']) {
-        $map['width'] = 300;
+        $map['width'] = 600;
       }
       else {
         $map['height'] = 'auto';
@@ -78,10 +79,25 @@ function ds_widgets_theme_registry_alter(&$theme_registry) {
   $theme_registry['web_widgets_iframe_wrapper']['preprocess functions'][] = 'template_preprocess_ds_widgets_web_widgets_iframe_wrapper';
 }
 
+// Returns an array of display names for widgets
+function _ds_widgets_display_names() {
+  return array( 'map',
+                'chart',
+                'table');
+}
+
 /**
  * Preprocessor for theme('web_widgets_iframe').
  */
 function template_preprocess_ds_widgets_web_widgets_iframe(&$vars) {
   $vars['site_name'] = t('from') . ' ' . variable_get('site_name', 'Drupal');
   $vars['title'] = l(drupal_get_title(), $_GET['q'], array('absolute' => TRUE, 'attributes' => array('style' => 'color:#fff;text-decoration:none;')));
+  
+  $vars['tabs_script_url'] = drupal_get_path('module', 'ds_widgets'). '/ds_widgets_tabs.js';
+    
+  $displays = _ds_widgets_display_names();
+  $base_path = str_replace ( '/' .$displays[0], '', $vars['path']);
+  
+  $vars['tabs'] = l('Map', $base_path. '/' .$displays[0], array('attributes' => array('onclick' => 'iframe_refresh(this.href);return false;', 'class' => 'map'))). '<span></span>';
+  $vars['tabs'] .= l('Table', $base_path. '/' .$displays[2], array('attributes' => array('onclick' => 'iframe_refresh(this.href);return false;', 'class' => 'table'))). '<span></span>';
 }
