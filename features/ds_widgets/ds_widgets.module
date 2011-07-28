@@ -98,6 +98,6 @@ function template_preprocess_ds_widgets_web_widgets_iframe(&$vars) {
   $displays = _ds_widgets_display_names();
   $base_path = str_replace ( '/' .$displays[0], '', $vars['path']);
   
-  $vars['tabs'] = l('Map', $base_path. '/' .$displays[0], array('attributes' => array('onclick' => 'iframe_refresh(this.href);return false;', 'class' => 'map'))). '<span></span>';
-  $vars['tabs'] .= l('Table', $base_path. '/' .$displays[2], array('attributes' => array('onclick' => 'iframe_refresh(this.href);return false;', 'class' => 'table'))). '<span></span>';
+  $vars['tabs'] = l('Map', $base_path. '/' .$displays[0], array('attributes' => array('onclick' => 'iframe_refresh(this.href);return false;', 'class' => 'map', 'style' => 'font-size:11px;color:#fff;margin-right:7px;')));
+  $vars['tabs'] .= l('Table', $base_path. '/' .$displays[2], array('attributes' => array('onclick' => 'iframe_refresh(this.href);return false;', 'class' => 'table', 'style' =>'font-size:11px;color:#fff;margin-right:7px;')));
 }

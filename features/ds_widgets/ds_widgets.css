@@ -61,20 +61,3 @@ body#widget div.openlayers-views-map div.openlayers-map {
 body#widget div.view-display-id-web_widgets_3 {
   position:fixed;
 }
-
-div.display-tabs p a {
-  text-indent: -9999em;
-}
-
-div.display-tabs p a span {
-    background: url("images/view-mode-icons.png") repeat scroll 0 0 transparent;
-    display: block;
-    float: left;
-    height: 22px;
-    opacity: 0.5;
-    width: 33px;
-}
-
-div.display-tabs p a.map span {
-   background-position: 198px 50%;
-}

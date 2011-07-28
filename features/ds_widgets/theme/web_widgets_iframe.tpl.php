@@ -9,7 +9,7 @@
 <div style="background-color:#000; padding:0px 5px; font-weight:bold">
 <div style="color:#fff; font-size:14px; line-height:25px;"><?php print $title ?></div>
 <div style="font-size:11px; color:#ccc"><?php print $site_name ?></div>
-<div class="display-tabs" style="font-size:11px; color:#fff"><p>Display: <?php print $tabs ?></p></div>
+<div class="display-tabs" style="font-size:11px; color:#fff"><span>Display: <?php print $tabs ?></span></div>
 </div>
 <script type="text/javascript">
 widgetContext = <?php print $js_variables ?>;
