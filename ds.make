@@ -12,8 +12,10 @@ projects[rubik][type] = "theme"
 projects[tao][version] = "3.2"
 projects[tao][type] = "theme"
 
-projects[jake][location] = http://code.developmentseed.org/fserver
-projects[jake][version] = 1.0-beta15
+projects[jake][type] = "theme"
+projects[jake][download][type] = "git"
+projects[jake][download][url] = "git@github.com:developmentseed/jake.git"
+projects[jake][download][tag] = "drupal-6--1-0-beta15"
 
 projects[menu_block][subdir] = "contrib"
 projects[menu_block][version] = "2.4"
