@@ -406,7 +406,6 @@ search-block-form';
     'toggle_secondary_links' => 0,
     'toggle_node_info_indicator' => 0,
     'toggle_node_info_page' => 0,
-    'toggle_node_info_sparql' => 0,
     'toggle_node_info_video' => 0,
     'default_logo' => 1,
     'logo_path' => '',
