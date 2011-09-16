@@ -21,7 +21,7 @@
 	//Find the index value of area to highligh
   $topvalue = 0;
 	foreach ($rows as $key => $row){
-    if ($row['areacode'] == check_plain($_GET['highlight'])){
+    if ($row['area_name'] == check_plain($_GET['highlight'])){
       $highlight = $key;
     }
     $row['value'] = ($row['value'] == 'n/a') ? 0 : $row['value'];
@@ -29,7 +29,7 @@
 			$topvalue = $row['value'];
 		}
   }
-	
+
 ?>
 <script type="text/javascript">
 			// <![CDATA[
@@ -37,8 +37,8 @@
 			<?php foreach ($rows as $row) {
 			        $row['value'] = ($row['value'] == 'n/a') ? 0 : $row['value'];
       ?>
-      	{ value: <?php print $row['value']?> , label: "<?php print $row['areacode']?>" },
-			<?php } ?> 
+      	{ value: <?php print $row['value']?> , label: "<?php print $row['area_name']?>" },
+			<?php } ?>
 			];
 		var topvalue = <?php print $topvalue; ?>;
 			$(document).ready(function() {
