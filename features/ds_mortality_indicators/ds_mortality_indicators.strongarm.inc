@@ -8,6 +8,28 @@ function ds_mortality_indicators_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'apachesolr_passthru_servers';
+  $strongarm->value = array(
+    'site_default' => array(
+      'machine_name' => 'site_default',
+      'human_name' => 'Site Default',
+      'solr_host' => 'localhost',
+      'solr_port' => '8983',
+      'solr_path' => '/solr',
+    ),
+    'indicators' => array(
+      'machine_name' => 'indicators',
+      'human_name' => 'Indicators',
+      'solr_host' => 'localhost',
+      'solr_port' => '8983',
+      'solr_path' => '/solr',
+    ),
+  );
+
+  $export['apachesolr_passthru_servers'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_indicator';
   $strongarm->value = 0;
 

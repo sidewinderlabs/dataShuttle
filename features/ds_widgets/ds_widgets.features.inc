@@ -9,12 +9,3 @@ function ds_widgets_ctools_plugin_api() {
     return array("version" => 3);
   }
 }
-
-/**
- * Implementation of hook_views_api().
- */
-function ds_widgets_views_api() {
-  return array(
-    'api' => '3.0-alpha1',
-  );
-}

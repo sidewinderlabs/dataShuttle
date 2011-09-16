@@ -245,7 +245,7 @@ function ds_mortality_indicators_default_page_manager_pages() {
     $pane->pid = 'new-5';
     $pane->panel = 'viewsresults';
     $pane->type = 'views_panes';
-    $pane->subtype = 'indicator_results-panel_pane_3';
+    $pane->subtype = 'indicator_results_solr-panel_pane_1';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array();
@@ -262,7 +262,7 @@ function ds_mortality_indicators_default_page_manager_pages() {
     $pane->pid = 'new-6';
     $pane->panel = 'viewsresults';
     $pane->type = 'views_panes';
-    $pane->subtype = 'indicator_results-panel_pane_1';
+    $pane->subtype = 'indicator_results_solr-panel_pane_2';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array();
@@ -275,23 +275,6 @@ function ds_mortality_indicators_default_page_manager_pages() {
     $pane->position = 1;
     $display->content['new-6'] = $pane;
     $display->panels['viewsresults'][1] = 'new-6';
-    $pane = new stdClass;
-    $pane->pid = 'new-7';
-    $pane->panel = 'viewsresults';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'indicator_results-panel_pane_2';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array();
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 2;
-    $display->content['new-7'] = $pane;
-    $display->panels['viewsresults'][2] = 'new-7';
   $display->hide_title = PANELS_TITLE_PANE;
   $display->title_pane = 'new-1';
   $handler->conf['display'] = $display;
