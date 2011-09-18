@@ -1,0 +1,3 @@
+# The following two directives are required for this example site to function (update path as necessary)
+AddType application/json .json
+WSGIScriptAlias /api /var/www/datashuttle/site/cubes/public/api/datashuttle.wsgi
