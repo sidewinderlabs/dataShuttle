@@ -334,14 +334,8 @@ var LDP = function() {};
 				if (!this.tooltip) {
 
 					this.tooltip = $('<div class="tooltip"></div>')
-						.css({
-							position: 'absolute',
-							left: e.pageX + "px",
-							top: e.pageY + "px"
-						});
-
-					$('body')
-						.append(this.tooltip);
+						.css('position', 'absolute')
+						.appendTo('body');
 
 				}
 
