@@ -1,0 +1,65 @@
+{
+	"name": "datashuttle",
+	"label": "DataShuttle",
+	"description": "DataShuttle",
+	"cubes": {
+		"mortality": {
+			"name": "mortality",
+			"label": "Mortality",
+			"dimensions": ["icd", "year", "area", "gender"],
+			"measures": ["value"],
+			"fact": "mortality",
+            "mappings": {
+                "icd.code": "icd",
+                "year.value": "year",
+				"area.code": "mortality_areas.area_code",
+				"area.name": "mortality_areas.area_name",
+				"gender.code": "gender"
+			},
+			"joins": [
+				{
+					"master": "mortality.area_id",
+					"detail": "mortality_areas.area_id"
+				}
+			]
+		}
+	},
+	"dimensions": {
+		"icd": {
+			"label": "ICD Code",
+			"levels": {
+				"icd": {
+					"label": "ICD Code",
+					"attributes": ["code"]
+				}
+			}
+		},
+		"year": {
+			"label": "Year",
+			"levels": {
+				"year": {
+					"label": "Year",
+					"attributes": ["value"]
+				}
+			}
+		},
+		"area": {
+			"label": "Area",
+			"levels": {
+				"area": {
+					"label": "Area",
+					"attributes": ["code", "name"]
+				}
+			}
+		},
+		"gender": {
+			"label": "Gender",
+			"levels": {
+				"gender": {
+					"label": "Gender",
+					"attributes": ["code"]
+				}
+			}
+		}
+	}
+}
