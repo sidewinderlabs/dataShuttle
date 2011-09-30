@@ -11,7 +11,7 @@
 		#results { float: right; font-weight: bold; }
 		#chart { width: 600px; }
 		#chart path { fill: #6baed6; stroke: #fff; stroke-width: 0.25px; }
-		.tooltip { background-color: #000; color: #fff; padding: 2px; }
+		.tooltip { background-color: #000; color: #fff; padding: 3px; text-align: center; }
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script type="text/javascript" src="js/d3/d3.js"></script>
@@ -22,8 +22,7 @@
 		 	$(document).ready(function() {
 
 				var service = new LDP.Service({
-					url: '/api',
-					rows: 20
+					url: '/api'
 				});
 
 				service.addDimension(
@@ -47,7 +46,10 @@
 						url: 'data/areas.json',
 						container: '#chart',
 						colourMin: "#ffc0cb",
-						colourMax: "#800000"
+						colourMax: "#800000",
+						formatFeatureToolTip: function(featureId, data, colourScale) {
+							return data['area.name'] + '<br/>' + LDP.Dimension.numFormat(data.value_sum);
+						}
 					})
 				);
 
@@ -67,7 +69,6 @@
 			<div id="dimensions"></div>
 		</div>
 		<div id="right">
-			<div id="results"></div>
 			<div id="chart"></div>
 		</div>
 	</div>

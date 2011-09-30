@@ -1,5 +1,4 @@
-LDP = function() {};
-LDP.Service = function() {};
+var LDP = function() {};
 
 (function($) {
 
@@ -138,7 +137,7 @@ LDP.Service = function() {};
 	LDP.Dimension = function() {};
 
 	/**
-	 * Utiltiy function to format a number for human consumption
+	 * Utility function to format a number for human consumption
 	 */
 	LDP.Dimension.numFormat = function(num) {
 		num += '';
@@ -162,7 +161,6 @@ LDP.Service = function() {};
 
 		this.container = config.container || '#dimensions';
 		this.container = $(this.container);
-
 	};
 
 	LDP.Dimension.List.prototype.processResponse = function(dimension) {
@@ -252,6 +250,10 @@ LDP.Service = function() {};
 
 		this.service = null;
 
+		// What data to place in the tooltips
+		this.formatFeatureToolTip = config.formatFeatureToolTip || this.formatFeatureToolTip;
+
+		// Where to render the map
 		this.container = config.container || '#geo';
 
 		// Default to grayscale colour range
@@ -289,7 +291,6 @@ LDP.Service = function() {};
 			handler.isLoaded = true;
 
 		});
-
 	};
 
 	LDP.Dimension.Geo.prototype.processResponse = function(dimension) {
@@ -312,7 +313,7 @@ LDP.Service = function() {};
 
 			this.setFeatureValue(
 				'#' + prefix + dimension.drilldown[i][dimension.key],
-				dimension.drilldown[i].value_sum,
+				dimension.drilldown[i],
 				colourScale
 			);
 
@@ -320,38 +321,44 @@ LDP.Service = function() {};
 
 	};
 
-	LDP.Dimension.Geo.prototype.setFeatureValue = function(featureId, value, colourScale) {
+	LDP.Dimension.Geo.prototype.setFeatureValue = function(featureId, data, colourScale) {
+
+		var handler = this;
 
 		$(featureId)
-			.css('fill', colourScale(value))
-			.unbind('hover')
-			.hover(
-				function (e) {
+			.css('fill', colourScale(data.value_sum))
+			.unbind('mousemove')
+			.unbind('mouseout')
+			.mousemove(function(e) {
 
-					if (this.tooltip) {
-						this.tooltip.html(LDP.Dimension.numFormat(value));
-						this.tooltip.show();
-						return;
-					}
+				if (!this.tooltip) {
 
-					var offset = $(this).offset();
-					this.tooltip = $('<div class="tooltip">' + LDP.Dimension.numFormat(value) + '</div>')
+					this.tooltip = $('<div class="tooltip"></div>')
 						.css({
 							position: 'absolute',
-							top: offset.top + "px",
-							left: offset.left + "px"
+							left: e.pageX + "px",
+							top: e.pageY + "px"
 						});
 
 					$('body')
 						.append(this.tooltip);
 
-				},
-				function (e) {
-					if (this.tooltip) {
-						this.tooltip.hide();
-					}
 				}
-			);
+
+				this.tooltip
+					.html(handler.formatFeatureToolTip(featureId, data, colourScale))
+					.css({
+						left: (e.pageX - 20) + "px",
+						top: (e.pageY - 45) + "px"
+					})
+					.show();
+
+			})
+			.mouseout(function(e) {
+				if (this.tooltip) {
+					this.tooltip.hide();
+				}
+			});
 
 	};
 
@@ -376,6 +383,10 @@ LDP.Service = function() {};
 			.domain([min, max])
 			.range([this.colourMin, this.colourMax]);
 
+	};
+
+	LDP.Dimension.Geo.prototype.formatFeatureToolTip = function(featureId, data, colourScale) {
+		return LDP.Dimension.numFormat(data.value_sum);
 	};
 
 	LDP.Dimension.Geo.prototype.getId = function(d) {
