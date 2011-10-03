@@ -10,14 +10,14 @@
 		#left { float: left; width: 300px; }
 		#right { float: left; }
 		h1, h2 { margin: 10px 0 10px 0; }
-		#state { float: right; margin-top: 15px; font-size: 140%; font-weight: bold; text-align: left; }
-		#state table { border-collapse: collapse; }
+		#state { float: right; margin-top: 5px; }
+		#state table { float: right; border-collapse: collapse; font-size: 140%; font-weight: bold; text-align: left; }
 		#state th, #state td { padding: 5px; border: 1px solid #000; }
 		.barChart rect, .barChart text { cursor: pointer; }
 		.barChart.static rect, .barChart.static text { cursor: default; }
 		.barChart rect { fill: #4682b4; stroke: #fff; }
 		.barChart text { fill: #fff; }
-		.showAll { display: block; margin-top: 5px; }
+		.showAll { display: block; }
 		#geo { float: left; width: 600px; height: 650px; margin-top: 15px; }
 		#geo path { fill: #6baed6; stroke: #fff; stroke-width: 0.25px; }
 		.tooltip { background-color: #000; color: #fff; padding: 3px; text-align: center; }
@@ -63,7 +63,7 @@
 						colourMin: "#ffc0cb",
 						colourMax: "#800000",
 						formatFeatureToolTip: function(featureId, data, colourScale) {
-							return data['area.name'] + '<br/>' + LDP.Dimension.numFormat(data.value_sum);
+							return data['area.name'] + '<br/>' + LDP.numFormat(data.value_sum);
 						}
 					})
 				);

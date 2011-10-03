@@ -3,6 +3,21 @@ var LDP = function() {};
 (function($) {
 
 	/**
+	 * Utility function to format a number for human consumption
+	 */
+	LDP.numFormat = function(num) {
+		num += '';
+		x = num.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+		}
+		return x1 + x2;
+	};
+
+	/**
 	 * Service constructor
 	 */
 	LDP.Service = function(config) {
@@ -34,8 +49,6 @@ var LDP = function() {};
 	 */
 	LDP.Service.prototype.update = function() {
 
-		this.updateStateInfo();
-
 		var values = [];
 		for(var dimension in this.cut) {
 			values.push(dimension + ':' + this.cut[dimension]);
@@ -44,33 +57,29 @@ var LDP = function() {};
 		var cut = values.join('|');
 
 		// Get values for each dimension
-		for (var cube in this.model.cubes) {
-			for (var i = 0; i < this.model.cubes[cube].dimensions.length; i++) {
+		for (var i = 0; i < this.model.cubes[this.cubeName].dimensions.length; i++) {
 
-				var dimensionName = this.model.cubes[cube].dimensions[i];
-				var dimensionData = this.model.dimensions[dimensionName].levels[dimensionName];
+			var dimensionName = this.model.cubes[this.cubeName].dimensions[i];
+			var dimensionData = this.model.dimensions[dimensionName].levels[dimensionName];
 
-				var requestVars = {};
-				requestVars.cut = cut;
+			var requestVars = {};
+			requestVars.cut = cut;
 
-				if (!(dimensionName in this.cut)) {
-					requestVars.drilldown = dimensionName;
-				}
-
-				this.sendRequest(
-					'dimension',
-					'cube/' + this.model.cubes[cube].name + '/aggregate',
-					requestVars,
-					{
-						label: this.model.dimensions[dimensionName].label,
-						name: dimensionData.name,
-						key: dimensionData.name + '.' + dimensionData.key,
-						cube_name: this.model.cubes[cube].name,
-						cube_label: this.model.cubes[cube].label
-					}
-				);
-
+			if (!(dimensionName in this.cut)) {
+				requestVars.drilldown = dimensionName;
 			}
+
+			this.sendRequest(
+				'dimension',
+				'cube/' + this.cubeName + '/aggregate',
+				requestVars,
+				{
+					label: this.model.dimensions[dimensionName].label,
+					name: dimensionData.name,
+					key: dimensionData.name + '.' + dimensionData.key
+				}
+			);
+
 		}
 
 	};
@@ -116,16 +125,32 @@ var LDP = function() {};
 		switch(type) {
 
 			case 'model':
+
+				// Save model data
 				this.model = data;
+
+				// Always use the first cube model
+				for (var cube in this.model.cubes) {
+					this.cubeName = cube;
+					break;
+				}
+
+				// Fetch dimensions
 				this.update();
+
 				break;
 
 			case 'dimension':
+
+				this.updateStateInfo(data.summary.value_sum);
+
 				if (!(data.name in this.dimensionHandlers)) {
 					console.log('Unknown dimension: ' + data.name);
 					return;
 				}
+
 				this.dimensionHandlers[data.name].processResponse(data);
+
 				break;
 
 			default:
@@ -139,25 +164,31 @@ var LDP = function() {};
 	/**
 	 * Update state information base on the current cut
 	 */
-	LDP.Service.prototype.updateStateInfo = function() {
+	LDP.Service.prototype.updateStateInfo = function(total) {
 
 		this.stateContainer.empty();
 
-		if (Object.keys(this.cut).length == 0) {
-			return;
+		if (total != undefined) {
+			this.stateContainer
+				.append('<h2>Total ' + this.model.cubes[this.cubeName].label + ': ' + LDP.numFormat(total) + '</h2>');
 		}
 
-		var table = $('<table></table>');
+		if (Object.keys(this.cut).length != 0) {
 
-		for (var dimension in this.cut) {
-			$('<tr></tr>')
-				.append('<th>' + this.model.dimensions[dimension].label + '</th>')
-				.append('<td>' + this.cut[dimension] + '</td>')
-				.appendTo(table);
+			var table = $('<table></table>');
+
+			for (var dimension in this.cut) {
+				$('<tr></tr>')
+					.append('<th>' + this.model.dimensions[dimension].label + '</th>')
+					.append('<td>' + this.cut[dimension] + '</td>')
+					.appendTo(table);
+
+			}
+
+			this.stateContainer
+				.append(table);
 
 		}
-
-		this.stateContainer.append(table);
 
 	};
 
@@ -166,20 +197,6 @@ var LDP = function() {};
 	 */
 	LDP.Dimension = function() {};
 
-	/**
-	 * Utility function to format a number for human consumption
-	 */
-	LDP.Dimension.numFormat = function(num) {
-		num += '';
-		x = num.split('.');
-		x1 = x[0];
-		x2 = x.length > 1 ? '.' + x[1] : '';
-		var rgx = /(\d+)(\d{3})/;
-		while (rgx.test(x1)) {
-			x1 = x1.replace(rgx, '$1' + ',' + '$2');
-		}
-		return x1 + x2;
-	};
 
 	/**
 	 * Utility function to add/replace a dimension
@@ -211,7 +228,7 @@ var LDP = function() {};
 	 * Utility function to format a dimension value
 	 */
 	LDP.Dimension.formatValue = function(name, value) {
-		return name + ' (' + LDP.Dimension.numFormat(value) + ')';
+		return name + ' (' + LDP.numFormat(value) + ')';
 	};
 
 	/**
@@ -514,7 +531,7 @@ var LDP = function() {};
 	};
 
 	LDP.Dimension.Geo.prototype.formatFeatureToolTip = function(featureId, data, colourScale) {
-		return LDP.Dimension.numFormat(data.value_sum);
+		return LDP.numFormat(data.value_sum);
 	};
 
 	LDP.Dimension.Geo.prototype.getId = function(d) {
