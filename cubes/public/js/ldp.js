@@ -152,6 +152,39 @@ var LDP = function() {};
 	};
 
 	/**
+	 * Utility function to add/replace a dimension
+	 */
+	LDP.Dimension.addDimension = function(container, name, label, content) {
+
+		var dimension = $('#dimension_' + name);
+		if (dimension.size()) {
+
+			// Replace existing dimension
+			dimension
+				.next()
+					.remove()
+				.end()
+				.after(content);
+
+		} else {
+
+			// Add new dimension
+			container
+				.append('<h2 id="dimension_' + name + '">' + label + '</h2>')
+				.append(content);
+
+		}
+
+	};
+
+	/**
+	 * Utility function to format a dimension value
+	 */
+	LDP.Dimension.formatValue = function(name, value) {
+		return name + ' (' + LDP.Dimension.numFormat(value) + ')';
+	};
+
+	/**
 	 * List Dimension constructor
 	 */
 	LDP.Dimension.List = function(config) {
@@ -184,11 +217,11 @@ var LDP = function() {};
 
 		var list = $('<ul></ul>').append(
 			$('<li></li>')
-				.append(dimension.summary[dimension.key] + ' (' + LDP.Dimension.numFormat(dimension.summary.value_sum) + ') ')
+				.append(LDP.Dimension.formatValue(dimension.summary[dimension.key], dimension.summary.value_sum) + ' ')
 				.append(removeLink)
 		);
 
-		this.addDimension(dimension.name, dimension.label, list);
+		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, list);
 
 	};
 
@@ -200,7 +233,7 @@ var LDP = function() {};
 			list.append(this.multiItem(dimension, dimension.drilldown[i]));
 		}
 
-		this.addDimension(dimension.name, dimension.label, list);
+		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, list);
 
 	}
 
@@ -208,7 +241,7 @@ var LDP = function() {};
 
 		var service = this.service;
 
-		var link = $('<a href="#">' + curDimension[dimension.key] + ' (' + LDP.Dimension.numFormat(curDimension.value_sum) + ')</a>')
+		var link = $('<a href="#">' + LDP.Dimension.formatValue(curDimension[dimension.key], curDimension.value_sum) + '</a>')
 			.click(function() {
 				service.addCut(dimension.name, curDimension[dimension.key]);
 				service.update();
@@ -219,27 +252,116 @@ var LDP = function() {};
 
 	};
 
-	LDP.Dimension.List.prototype.addDimension = function(name, label, content) {
 
-		var dimension = $('#dimension_' + name);
-		if (dimension.size()) {
+	/**
+	 * BarChart Dimension constructor
+	 */
+	LDP.Dimension.BarChart = function(config) {
+		config = config || {};
 
-			// Replace existing dimension
-			dimension
-				.next()
-					.remove()
-				.end()
-				.after(content);
+		this.service = null;
 
+		this.container = $(config.container || '#dimensions');
+
+		this.barWidth = config.barWidth || 250;
+		this.barHeight = config.barHeight || 20;
+
+		this.textX = config.textX || -3;
+		this.textY = config.textY || '.35em';
+		this.textAnchor = config.textAnchor || 'end';
+
+		this.scale = config.scale || this.scale;
+	};
+
+	LDP.Dimension.BarChart.prototype.processResponse = function(dimension) {
+		if (dimension.total_cell_count == null) {
+			this.single(dimension);
 		} else {
-
-			// Add new dimension
-			this.container
-				.append('<h2 id="dimension_' + name + '">' + label + '</h2>')
-				.append(content);
-
+			this.multi(dimension);
 		}
+	};
 
+	LDP.Dimension.BarChart.prototype.single = function(dimension) {
+
+		var service = this.service;
+
+		// Create link to remove cut for current dimension and show all values
+		var removeLink = $('<a href="#" class="showAll">Show All</a>')
+			.click(function() {
+				service.removeCut(dimension.name);
+				service.update();
+				return false;
+			});
+
+		// Create single line bar chart
+		var bar = '<svg class="barChart static" width="' + this.barWidth + '" height="' + this.barHeight + '">';
+		bar += '<rect y="0" width="' + this.barWidth + '" height="' + this.barHeight + '"></rect>';
+		bar += '<text x="' + this.barWidth + '" y="' + (this.barHeight / 2) + '" dx="' + this.textX + '" dy="' + this.textY + '" text-anchor="' + this.textAnchor + '">';
+		bar += LDP.Dimension.formatValue(dimension.summary[dimension.key], dimension.summary.value_sum) + '</text></svg>';
+
+		// Add content to page
+		var content = $('<div></div>')
+			.append(bar)
+			.append(removeLink);
+		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, content);
+
+	};
+
+	LDP.Dimension.BarChart.prototype.multi = function(dimension) {
+
+		var handler = this;
+		var data = dimension.drilldown.map(function (d) {
+			return d.value_sum
+		});
+		var scale = this.scale(data);
+
+		// Create bar chart
+		var chartContainer = $('<div></div>');
+		var chart = d3.select(chartContainer.get(0))
+			.append('svg:svg')
+				.attr('class', 'barChart')
+				.attr('width', this.barWidth)
+				.attr('height', this.barHeight * data.length);
+
+		// Create bars
+		var bars = chart.selectAll('rect')
+				.data(data)
+			.enter().append('svg:rect')
+				.attr('y', function(d, i) { return i * handler.barHeight; })
+				.attr('width', scale)
+				.attr('height', this.barHeight)
+				.on('click', function(d, i) {
+					handler.service.addCut(dimension.name, dimension.drilldown[i][dimension.key]);
+					handler.service.update();
+				});
+
+		// Create bar labels
+		chart.selectAll('text')
+				.data(data)
+			.enter().append('svg:text')
+				.attr('x', scale)
+				.attr('y', function(d, i) { return (i * handler.barHeight) + (handler.barHeight/2); })
+				.attr('dx', this.textX)
+				.attr('dy', this.textY)
+				.attr('text-anchor', this.textAnchor)
+				.text(function (d, i) {
+					return LDP.Dimension.formatValue(dimension.drilldown[i][dimension.key], d);
+				})
+				.on('click', function(d, i) {
+					// Pass click event to bar's handler
+					var rect = $(this).parent().children('rect').get(i);
+					(d3.select(rect).on('click'))(d, i);
+				});
+
+		// Add chart to page
+		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, chartContainer);
+
+	};
+
+	LDP.Dimension.BarChart.prototype.scale = function(data) {
+		return d3.scale.linear()
+			.domain([0, d3.max(data)])
+			.range([0, this.barWidth]);
 	};
 
 	/**
@@ -303,7 +425,12 @@ var LDP = function() {};
 		}
 
 		// Get colour range for the current set of values
-		var colourScale = this.getColourScale(dimension);
+		var colourScale = d3.scale.linear()
+			.domain([
+				d3.min(dimension.drilldown, this.getValue),
+				d3.max(dimension.drilldown, this.getValue)
+			])
+			.range([this.colourMin, this.colourMax])
 
 		// Get prefix for GeoJSON features IDs' (the suffix is always the dimension value)
 		var prefix = (this.featureIdPrefix == null) ? dimension.name + '_' : this.featureIdPrefix;
@@ -356,35 +483,16 @@ var LDP = function() {};
 
 	};
 
-	LDP.Dimension.Geo.prototype.getColourScale = function(dimension) {
-
-		// Loop through all dimension's values to get minimum and maximum
-		var min = dimension.drilldown[0].value_sum;
-		var max = dimension.drilldown[0].value_sum;
-
-		for (var i = 0; i < dimension.drilldown.length; i++) {
-			var value = dimension.drilldown[i].value_sum;
-			if (value > max) {
-				max = value;
-			}
-			if (value < min) {
-				min = value;
-			}
-		}
-
-		// Return a linear scaling function
-		return d3.scale.linear()
-			.domain([min, max])
-			.range([this.colourMin, this.colourMax]);
-
-	};
-
 	LDP.Dimension.Geo.prototype.formatFeatureToolTip = function(featureId, data, colourScale) {
 		return LDP.Dimension.numFormat(data.value_sum);
 	};
 
 	LDP.Dimension.Geo.prototype.getId = function(d) {
 		return d.id;
+	};
+
+	LDP.Dimension.Geo.prototype.getValue = function(d) {
+		return d.value_sum;
 	};
 
 })(jQuery);

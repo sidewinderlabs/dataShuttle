@@ -8,9 +8,13 @@
 		body { font-family: Georgia,"Times New Roman",Times,serif; font-size: 80%; }
 		#left { float: left; width: 300px; }
 		#right { float: left; }
-		#results { float: right; font-weight: bold; }
-		#chart { width: 600px; }
-		#chart path { fill: #6baed6; stroke: #fff; stroke-width: 0.25px; }
+		.barChart rect, .barChart text { cursor: pointer; }
+		.barChart.static rect, .barChart.static text { cursor: default; }
+		.barChart rect { fill: #4682b4; stroke: #fff; }
+		.barChart text { fill: #fff; }
+		.showAll { display: block; margin-top: 5px; }
+		#geo { width: 600px; }
+		#geo path { fill: #6baed6; stroke: #fff; stroke-width: 0.25px; }
 		.tooltip { background-color: #000; color: #fff; padding: 3px; text-align: center; }
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
@@ -27,24 +31,30 @@
 
 				service.addDimension(
 					'gender',
-					new LDP.Dimension.List()
+					new LDP.Dimension.BarChart()
 				);
 
 				service.addDimension(
 					'year',
-					new LDP.Dimension.List()
+					new LDP.Dimension.BarChart()
 				);
 
 				service.addDimension(
 					'icd',
-					new LDP.Dimension.List()
+					new LDP.Dimension.BarChart({
+						scale: function(data) {
+							return d3.scale.pow()
+								.exponent(.1)
+								.domain([0, d3.max(data)])
+								.range([0, this.barWidth]);
+						}
+					})
 				);
 
 				service.addDimension(
 					'area',
 					new LDP.Dimension.Geo({
 						url: 'data/areas.json',
-						container: '#chart',
 						colourMin: "#ffc0cb",
 						colourMax: "#800000",
 						formatFeatureToolTip: function(featureId, data, colourScale) {
@@ -69,7 +79,7 @@
 			<div id="dimensions"></div>
 		</div>
 		<div id="right">
-			<div id="chart"></div>
+			<div id="geo"></div>
 		</div>
 	</div>
 </body>
