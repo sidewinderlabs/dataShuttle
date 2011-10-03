@@ -5,13 +5,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	<title>dataShuttle Visualisations</title>
 	<style type="text/css">
-		body { font-family: Georgia,"Times New Roman",Times,serif; font-size: 80%; }
+		* { margin: 0; padding: 0; }
+		body { font-family: Georgia,"Times New Roman",Times,serif; font-size: 80%; padding: 20px; }
 		#left { float: left; width: 300px; }
 		#right { float: left; }
-		#results { float: right; font-weight: bold; }
-		#chart { width: 600px; }
-		#chart path { fill: #6baed6; stroke: #fff; stroke-width: 0.25px; }
-		.tooltip { background-color: #000; color: #fff; padding: 2px; }
+		h1, h2 { margin: 10px 0 10px 0; }
+		#state { float: right; margin-top: 5px; }
+		#state table { float: right; border-collapse: collapse; font-size: 140%; font-weight: bold; text-align: left; }
+		#state th, #state td { padding: 5px; border: 1px solid #000; }
+		.barChart rect, .barChart text { cursor: pointer; }
+		.barChart.static rect, .barChart.static text { cursor: default; }
+		.barChart rect { fill: #4682b4; stroke: #fff; }
+		.barChart text { fill: #fff; }
+		.showAll { display: block; }
+		#geo { float: left; width: 600px; height: 650px; margin-top: 15px; }
+		#geo path { fill: #6baed6; stroke: #fff; stroke-width: 0.25px; }
+		.tooltip { background-color: #000; color: #fff; padding: 3px; text-align: center; }
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script type="text/javascript" src="js/d3/d3.js"></script>
@@ -22,32 +31,40 @@
 		 	$(document).ready(function() {
 
 				var service = new LDP.Service({
-					url: '/api',
-					rows: 20
+					url: '/api'
 				});
 
 				service.addDimension(
 					'gender',
-					new LDP.Dimension.List()
+					new LDP.Dimension.BarChart()
 				);
 
 				service.addDimension(
 					'year',
-					new LDP.Dimension.List()
+					new LDP.Dimension.BarChart()
 				);
 
 				service.addDimension(
 					'icd',
-					new LDP.Dimension.List()
+					new LDP.Dimension.BarChart({
+						scale: function(data) {
+							return d3.scale.pow()
+								.exponent(.1)
+								.domain([0, d3.max(data)])
+								.range([0, this.barWidth]);
+						}
+					})
 				);
 
 				service.addDimension(
 					'area',
 					new LDP.Dimension.Geo({
 						url: 'data/areas.json',
-						container: '#chart',
 						colourMin: "#ffc0cb",
-						colourMax: "#800000"
+						colourMax: "#800000",
+						formatFeatureToolTip: function(featureId, data, colourScale) {
+							return data['area.name'] + '<br/>' + LDP.numFormat(data.value_sum);
+						}
 					})
 				);
 
@@ -67,8 +84,8 @@
 			<div id="dimensions"></div>
 		</div>
 		<div id="right">
-			<div id="results"></div>
-			<div id="chart"></div>
+			<div id="state"></div>
+			<div id="geo"></div>
 		</div>
 	</div>
 </body>

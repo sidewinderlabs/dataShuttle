@@ -1,7 +1,21 @@
-LDP = function() {};
-LDP.Service = function() {};
+var LDP = function() {};
 
 (function($) {
+
+	/**
+	 * Utility function to format a number for human consumption
+	 */
+	LDP.numFormat = function(num) {
+		num += '';
+		x = num.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+		}
+		return x1 + x2;
+	};
 
 	/**
 	 * Service constructor
@@ -9,6 +23,7 @@ LDP.Service = function() {};
 	LDP.Service = function(config) {
 		this.url = config.url;
 		this.rows = config.rows || 10;
+		this.stateContainer = $(config.stateContainer || '#state');
 		this.dimensionHandlers = {};
 		this.cut = {};
 	};
@@ -25,6 +40,7 @@ LDP.Service = function() {};
 	 * Page setup - fetch all models
 	 */
 	LDP.Service.prototype.run = function() {
+		this.updateStateInfo();
 		this.sendRequest('model', 'model');
 	};
 
@@ -41,36 +57,33 @@ LDP.Service = function() {};
 		var cut = values.join('|');
 
 		// Get values for each dimension
-		for (var cube in this.model.cubes) {
-			for (var i = 0; i < this.model.cubes[cube].dimensions.length; i++) {
+		for (var i = 0; i < this.model.cubes[this.cubeName].dimensions.length; i++) {
 
-				var dimensionName = this.model.cubes[cube].dimensions[i];
-				var dimensionData = this.model.dimensions[dimensionName].levels[dimensionName];
+			var dimensionName = this.model.cubes[this.cubeName].dimensions[i];
+			var dimensionData = this.model.dimensions[dimensionName].levels[dimensionName];
 
-				var requestVars = {};
-				requestVars.cut = cut;
+			var requestVars = {};
+			requestVars.cut = cut;
 
-				if (!(dimensionName in this.cut)) {
-					requestVars.drilldown = dimensionName;
-				}
-
-				this.sendRequest(
-					'dimension',
-					'cube/' + this.model.cubes[cube].name + '/aggregate',
-					requestVars,
-					{
-						label: this.model.dimensions[dimensionName].label,
-						name: dimensionData.name,
-						key: dimensionData.name + '.' + dimensionData.key,
-						cube_name: this.model.cubes[cube].name,
-						cube_label: this.model.cubes[cube].label
-					}
-				);
-
+			if (!(dimensionName in this.cut)) {
+				requestVars.drilldown = dimensionName;
 			}
+
+			this.sendRequest(
+				'dimension',
+				'cube/' + this.cubeName + '/aggregate',
+				requestVars,
+				{
+					label: this.model.dimensions[dimensionName].label,
+					name: dimensionData.name,
+					key: dimensionData.name + '.' + dimensionData.key
+				}
+			);
+
 		}
 
 	};
+
 	/**
 	 * Add value to filter on
 	 */
@@ -112,16 +125,32 @@ LDP.Service = function() {};
 		switch(type) {
 
 			case 'model':
+
+				// Save model data
 				this.model = data;
+
+				// Always use the first cube model
+				for (var cube in this.model.cubes) {
+					this.cubeName = cube;
+					break;
+				}
+
+				// Fetch dimensions
 				this.update();
+
 				break;
 
 			case 'dimension':
+
+				this.updateStateInfo(data.summary.value_sum);
+
 				if (!(data.name in this.dimensionHandlers)) {
 					console.log('Unknown dimension: ' + data.name);
 					return;
 				}
+
 				this.dimensionHandlers[data.name].processResponse(data);
+
 				break;
 
 			default:
@@ -133,23 +162,73 @@ LDP.Service = function() {};
 	};
 
 	/**
+	 * Update state information base on the current cut
+	 */
+	LDP.Service.prototype.updateStateInfo = function(total) {
+
+		this.stateContainer.empty();
+
+		if (total != undefined) {
+			this.stateContainer
+				.append('<h2>Total ' + this.model.cubes[this.cubeName].label + ': ' + LDP.numFormat(total) + '</h2>');
+		}
+
+		if (Object.keys(this.cut).length != 0) {
+
+			var table = $('<table></table>');
+
+			for (var dimension in this.cut) {
+				$('<tr></tr>')
+					.append('<th>' + this.model.dimensions[dimension].label + '</th>')
+					.append('<td>' + this.cut[dimension] + '</td>')
+					.appendTo(table);
+
+			}
+
+			this.stateContainer
+				.append(table);
+
+		}
+
+	};
+
+	/**
 	 * Dimension namespace
 	 */
 	LDP.Dimension = function() {};
 
+
 	/**
-	 * Utiltiy function to format a number for human consumption
+	 * Utility function to add/replace a dimension
 	 */
-	LDP.Dimension.numFormat = function(num) {
-		num += '';
-		x = num.split('.');
-		x1 = x[0];
-		x2 = x.length > 1 ? '.' + x[1] : '';
-		var rgx = /(\d+)(\d{3})/;
-		while (rgx.test(x1)) {
-			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	LDP.Dimension.addDimension = function(container, name, label, content) {
+
+		var dimension = $('#dimension_' + name);
+		if (dimension.size()) {
+
+			// Replace existing dimension
+			dimension
+				.next()
+					.remove()
+				.end()
+				.after(content);
+
+		} else {
+
+			// Add new dimension
+			container
+				.append('<h2 id="dimension_' + name + '">' + label + '</h2>')
+				.append(content);
+
 		}
-		return x1 + x2;
+
+	};
+
+	/**
+	 * Utility function to format a dimension value
+	 */
+	LDP.Dimension.formatValue = function(name, value) {
+		return name + ' (' + LDP.numFormat(value) + ')';
 	};
 
 	/**
@@ -162,7 +241,6 @@ LDP.Service = function() {};
 
 		this.container = config.container || '#dimensions';
 		this.container = $(this.container);
-
 	};
 
 	LDP.Dimension.List.prototype.processResponse = function(dimension) {
@@ -186,11 +264,11 @@ LDP.Service = function() {};
 
 		var list = $('<ul></ul>').append(
 			$('<li></li>')
-				.append(dimension.summary[dimension.key] + ' (' + LDP.Dimension.numFormat(dimension.summary.value_sum) + ') ')
+				.append(LDP.Dimension.formatValue(dimension.summary[dimension.key], dimension.summary.value_sum) + ' ')
 				.append(removeLink)
 		);
 
-		this.addDimension(dimension.name, dimension.label, list);
+		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, list);
 
 	};
 
@@ -202,7 +280,7 @@ LDP.Service = function() {};
 			list.append(this.multiItem(dimension, dimension.drilldown[i]));
 		}
 
-		this.addDimension(dimension.name, dimension.label, list);
+		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, list);
 
 	}
 
@@ -210,7 +288,7 @@ LDP.Service = function() {};
 
 		var service = this.service;
 
-		var link = $('<a href="#">' + curDimension[dimension.key] + ' (' + LDP.Dimension.numFormat(curDimension.value_sum) + ')</a>')
+		var link = $('<a href="#">' + LDP.Dimension.formatValue(curDimension[dimension.key], curDimension.value_sum) + '</a>')
 			.click(function() {
 				service.addCut(dimension.name, curDimension[dimension.key]);
 				service.update();
@@ -221,27 +299,116 @@ LDP.Service = function() {};
 
 	};
 
-	LDP.Dimension.List.prototype.addDimension = function(name, label, content) {
 
-		var dimension = $('#dimension_' + name);
-		if (dimension.size()) {
+	/**
+	 * BarChart Dimension constructor
+	 */
+	LDP.Dimension.BarChart = function(config) {
+		config = config || {};
 
-			// Replace existing dimension
-			dimension
-				.next()
-					.remove()
-				.end()
-				.after(content);
+		this.service = null;
 
+		this.container = $(config.container || '#dimensions');
+
+		this.barWidth = config.barWidth || 250;
+		this.barHeight = config.barHeight || 20;
+
+		this.textX = config.textX || -3;
+		this.textY = config.textY || '.35em';
+		this.textAnchor = config.textAnchor || 'end';
+
+		this.scale = config.scale || this.scale;
+	};
+
+	LDP.Dimension.BarChart.prototype.processResponse = function(dimension) {
+		if (dimension.total_cell_count == null) {
+			this.single(dimension);
 		} else {
-
-			// Add new dimension
-			this.container
-				.append('<h2 id="dimension_' + name + '">' + label + '</h2>')
-				.append(content);
-
+			this.multi(dimension);
 		}
+	};
 
+	LDP.Dimension.BarChart.prototype.single = function(dimension) {
+
+		var service = this.service;
+
+		// Create link to remove cut for current dimension and show all values
+		var removeLink = $('<a href="#" class="showAll">Show All</a>')
+			.click(function() {
+				service.removeCut(dimension.name);
+				service.update();
+				return false;
+			});
+
+		// Create single line bar chart
+		var bar = '<svg class="barChart static" width="' + this.barWidth + '" height="' + this.barHeight + '">';
+		bar += '<rect y="0" width="' + this.barWidth + '" height="' + this.barHeight + '"></rect>';
+		bar += '<text x="' + this.barWidth + '" y="' + (this.barHeight / 2) + '" dx="' + this.textX + '" dy="' + this.textY + '" text-anchor="' + this.textAnchor + '">';
+		bar += LDP.Dimension.formatValue(dimension.summary[dimension.key], dimension.summary.value_sum) + '</text></svg>';
+
+		// Add content to page
+		var content = $('<div></div>')
+			.append(bar)
+			.append(removeLink);
+		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, content);
+
+	};
+
+	LDP.Dimension.BarChart.prototype.multi = function(dimension) {
+
+		var handler = this;
+		var data = dimension.drilldown.map(function (d) {
+			return d.value_sum
+		});
+		var scale = this.scale(data);
+
+		// Create bar chart
+		var chartContainer = $('<div></div>');
+		var chart = d3.select(chartContainer.get(0))
+			.append('svg:svg')
+				.attr('class', 'barChart')
+				.attr('width', this.barWidth)
+				.attr('height', this.barHeight * data.length);
+
+		// Create bars
+		var bars = chart.selectAll('rect')
+				.data(data)
+			.enter().append('svg:rect')
+				.attr('y', function(d, i) { return i * handler.barHeight; })
+				.attr('width', scale)
+				.attr('height', this.barHeight)
+				.on('click', function(d, i) {
+					handler.service.addCut(dimension.name, dimension.drilldown[i][dimension.key]);
+					handler.service.update();
+				});
+
+		// Create bar labels
+		chart.selectAll('text')
+				.data(data)
+			.enter().append('svg:text')
+				.attr('x', scale)
+				.attr('y', function(d, i) { return (i * handler.barHeight) + (handler.barHeight/2); })
+				.attr('dx', this.textX)
+				.attr('dy', this.textY)
+				.attr('text-anchor', this.textAnchor)
+				.text(function (d, i) {
+					return LDP.Dimension.formatValue(dimension.drilldown[i][dimension.key], d);
+				})
+				.on('click', function(d, i) {
+					// Pass click event to bar's handler
+					var rect = $(this).parent().children('rect').get(i);
+					(d3.select(rect).on('click'))(d, i);
+				});
+
+		// Add chart to page
+		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, chartContainer);
+
+	};
+
+	LDP.Dimension.BarChart.prototype.scale = function(data) {
+		return d3.scale.linear()
+			.domain([0, d3.max(data)])
+			.range([0, this.barWidth]);
 	};
 
 	/**
@@ -252,6 +419,10 @@ LDP.Service = function() {};
 
 		this.service = null;
 
+		// What data to place in the tooltips
+		this.formatFeatureToolTip = config.formatFeatureToolTip || this.formatFeatureToolTip;
+
+		// Where to render the map
 		this.container = config.container || '#geo';
 
 		// Default to grayscale colour range
@@ -289,7 +460,6 @@ LDP.Service = function() {};
 			handler.isLoaded = true;
 
 		});
-
 	};
 
 	LDP.Dimension.Geo.prototype.processResponse = function(dimension) {
@@ -302,7 +472,12 @@ LDP.Service = function() {};
 		}
 
 		// Get colour range for the current set of values
-		var colourScale = this.getColourScale(dimension);
+		var colourScale = d3.scale.linear()
+			.domain([
+				d3.min(dimension.drilldown, this.getValue),
+				d3.max(dimension.drilldown, this.getValue)
+			])
+			.range([this.colourMin, this.colourMax])
 
 		// Get prefix for GeoJSON features IDs' (the suffix is always the dimension value)
 		var prefix = (this.featureIdPrefix == null) ? dimension.name + '_' : this.featureIdPrefix;
@@ -312,7 +487,7 @@ LDP.Service = function() {};
 
 			this.setFeatureValue(
 				'#' + prefix + dimension.drilldown[i][dimension.key],
-				dimension.drilldown[i].value_sum,
+				dimension.drilldown[i],
 				colourScale
 			);
 
@@ -320,66 +495,51 @@ LDP.Service = function() {};
 
 	};
 
-	LDP.Dimension.Geo.prototype.setFeatureValue = function(featureId, value, colourScale) {
+	LDP.Dimension.Geo.prototype.setFeatureValue = function(featureId, data, colourScale) {
+
+		var handler = this;
 
 		$(featureId)
-			.css('fill', colourScale(value))
-			.unbind('hover')
-			.hover(
-				function (e) {
+			.css('fill', colourScale(data.value_sum))
+			.unbind('mousemove')
+			.unbind('mouseout')
+			.mousemove(function(e) {
 
-					if (this.tooltip) {
-						this.tooltip.html(LDP.Dimension.numFormat(value));
-						this.tooltip.show();
-						return;
-					}
+				if (!this.tooltip) {
 
-					var offset = $(this).offset();
-					this.tooltip = $('<div class="tooltip">' + LDP.Dimension.numFormat(value) + '</div>')
-						.css({
-							position: 'absolute',
-							top: offset.top + "px",
-							left: offset.left + "px"
-						});
+					this.tooltip = $('<div class="tooltip"></div>')
+						.css('position', 'absolute')
+						.appendTo('body');
 
-					$('body')
-						.append(this.tooltip);
-
-				},
-				function (e) {
-					if (this.tooltip) {
-						this.tooltip.hide();
-					}
 				}
-			);
+
+				this.tooltip
+					.html(handler.formatFeatureToolTip(featureId, data, colourScale))
+					.css({
+						left: (e.pageX - 20) + "px",
+						top: (e.pageY - 45) + "px"
+					})
+					.show();
+
+			})
+			.mouseout(function(e) {
+				if (this.tooltip) {
+					this.tooltip.hide();
+				}
+			});
 
 	};
 
-	LDP.Dimension.Geo.prototype.getColourScale = function(dimension) {
-
-		// Loop through all dimension's values to get minimum and maximum
-		var min = dimension.drilldown[0].value_sum;
-		var max = dimension.drilldown[0].value_sum;
-
-		for (var i = 0; i < dimension.drilldown.length; i++) {
-			var value = dimension.drilldown[i].value_sum;
-			if (value > max) {
-				max = value;
-			}
-			if (value < min) {
-				min = value;
-			}
-		}
-
-		// Return a linear scaling function
-		return d3.scale.linear()
-			.domain([min, max])
-			.range([this.colourMin, this.colourMax]);
-
+	LDP.Dimension.Geo.prototype.formatFeatureToolTip = function(featureId, data, colourScale) {
+		return LDP.numFormat(data.value_sum);
 	};
 
 	LDP.Dimension.Geo.prototype.getId = function(d) {
 		return d.id;
+	};
+
+	LDP.Dimension.Geo.prototype.getValue = function(d) {
+		return d.value_sum;
 	};
 
 })(jQuery);
