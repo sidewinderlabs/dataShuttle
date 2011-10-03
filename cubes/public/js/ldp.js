@@ -8,6 +8,7 @@ var LDP = function() {};
 	LDP.Service = function(config) {
 		this.url = config.url;
 		this.rows = config.rows || 10;
+		this.stateContainer = $(config.stateContainer || '#state');
 		this.dimensionHandlers = {};
 		this.cut = {};
 	};
@@ -24,6 +25,7 @@ var LDP = function() {};
 	 * Page setup - fetch all models
 	 */
 	LDP.Service.prototype.run = function() {
+		this.updateStateInfo();
 		this.sendRequest('model', 'model');
 	};
 
@@ -31,6 +33,8 @@ var LDP = function() {};
 	 * Re-fetch all dimensions using the current cut
 	 */
 	LDP.Service.prototype.update = function() {
+
+		this.updateStateInfo();
 
 		var values = [];
 		for(var dimension in this.cut) {
@@ -70,6 +74,7 @@ var LDP = function() {};
 		}
 
 	};
+
 	/**
 	 * Add value to filter on
 	 */
@@ -128,6 +133,31 @@ var LDP = function() {};
 				break;
 
 		}
+
+	};
+
+	/**
+	 * Update state information base on the current cut
+	 */
+	LDP.Service.prototype.updateStateInfo = function() {
+
+		this.stateContainer.empty();
+
+		if (Object.keys(this.cut).length == 0) {
+			return;
+		}
+
+		var table = $('<table></table>');
+
+		for (var dimension in this.cut) {
+			$('<tr></tr>')
+				.append('<th>' + this.model.dimensions[dimension].label + '</th>')
+				.append('<td>' + this.cut[dimension] + '</td>')
+				.appendTo(table);
+
+		}
+
+		this.stateContainer.append(table);
 
 	};
 
