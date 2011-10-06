@@ -267,6 +267,10 @@ var LDP = function() {};
 		}
 	};
 
+	LDP.Dimension.tooltipsRemove = function() {
+		$('.tooltip').remove();
+	}
+
 	/**
 	 * List Dimension constructor
 	 */
@@ -394,6 +398,7 @@ var LDP = function() {};
 			.click(function() {
 				service.removeCut(dimension.name);
 				service.update();
+				LDP.Dimension.tooltipsRemove();
 				return false;
 			});
 
@@ -443,6 +448,7 @@ var LDP = function() {};
 				.on('click', function(d, i) {
 					handler.service.addCut(dimension.name, dimension.drilldown[i][dimension.key]);
 					handler.service.update();
+					LDP.Dimension.tooltipsRemove();
 				})
 				.on('mousemove', function(d, i) {
 					LDP.Dimension.tooltipMouseMove.apply(this, [dimension, dimension.drilldown[i]]);
@@ -588,6 +594,7 @@ var LDP = function() {};
 			.click(function() {
 				service.removeCut(dimension.name);
 				service.update();
+				LDP.Dimension.tooltipsRemove();
 				return false;
 			})
 			.appendTo(this.container);
@@ -644,6 +651,8 @@ var LDP = function() {};
 
 				handler.service.addCut(dimension.name, data[dimension.key]);
 				handler.service.update();
+
+				LDP.Dimension.tooltipsRemove();
 
 			})
 			.on('mousemove', function(d, i) {
