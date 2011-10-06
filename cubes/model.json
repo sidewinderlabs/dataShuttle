@@ -10,7 +10,8 @@
 			"measures": ["value"],
 			"fact": "mortality",
             "mappings": {
-                "icd.code": "icd",
+                "icd.code": "mortality_diseases.disease_icd",
+                "icd.name": "mortality_diseases.disease_name",
                 "year.value": "year",
 				"area.code": "mortality_areas.area_code",
 				"area.name": "mortality_areas.area_name",
@@ -20,6 +21,10 @@
 				{
 					"master": "mortality.area_id",
 					"detail": "mortality_areas.area_id"
+				},
+				{
+					"master": "mortality.disease_id",
+					"detail": "mortality_diseases.disease_id"
 				}
 			]
 		}
@@ -30,7 +35,7 @@
 			"levels": {
 				"icd": {
 					"label": "ICD Code",
-					"attributes": ["code"]
+					"attributes": ["code", "name"]
 				}
 			}
 		},

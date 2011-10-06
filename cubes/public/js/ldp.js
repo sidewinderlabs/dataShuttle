@@ -199,7 +199,7 @@ var LDP = function() {};
 
 
 	/**
-	 * Utility function to add/replace a dimension
+	 * Add/replace a dimension
 	 */
 	LDP.Dimension.addDimension = function(container, name, label, content) {
 
@@ -225,10 +225,46 @@ var LDP = function() {};
 	};
 
 	/**
-	 * Utility function to format a dimension value
+	 * Dimension tooltips
 	 */
-	LDP.Dimension.formatValue = function(name, value) {
-		return name + ' (' + LDP.numFormat(value) + ')';
+	LDP.Dimension.tooltipMouseMove = function(dimension, data) {
+
+		if (!d3.select(this).classed('click')) {
+			return;
+		}
+
+		if (!this.tooltip) {
+			this.tooltip = $('<div class="tooltip"></div>')
+				.css('position', 'absolute')
+				.appendTo('body');
+		}
+
+		// Show dimension measure in tooltip
+		values = [
+			LDP.numFormat(data.value_sum)
+		];
+
+		// Add any additional dimension attributes to tooltip
+		for (var i in data) {
+			if (i != dimension.key && i.split('.')[0] == dimension.name) {
+				values.push(data[i]);
+			}
+		}
+
+		this.tooltip
+			.html(values.join(' <br/>'))
+			.css({
+				left: (d3.event.pageX - 20) + 'px',
+				top: (d3.event.pageY - (values.length * 20) - 5) + 'px'
+			})
+			.show();
+
+	};
+
+	LDP.Dimension.tooltipMouseOut = function(d, i) {
+		if (this.tooltip) {
+			this.tooltip.hide();
+		}
 	};
 
 	/**
@@ -243,6 +279,9 @@ var LDP = function() {};
 		this.container = $(this.container);
 	};
 
+	/**
+	 * Process list dimension response
+	 */
 	LDP.Dimension.List.prototype.processResponse = function(dimension) {
 		if (dimension.total_cell_count == null) {
 			this.single(dimension);
@@ -255,7 +294,7 @@ var LDP = function() {};
 
 		var service = this.service;
 
-		var removeLink = $('<a href="#">x</a>')
+		var showAll = $('<a href="#" class="showAll">x</a>')
 			.click(function() {
 				service.removeCut(dimension.name);
 				service.update();
@@ -264,14 +303,17 @@ var LDP = function() {};
 
 		var list = $('<ul></ul>').append(
 			$('<li></li>')
-				.append(LDP.Dimension.formatValue(dimension.summary[dimension.key], dimension.summary.value_sum) + ' ')
-				.append(removeLink)
+				.append(this.formatValue(dimension.summary[dimension.key], dimension.summary.value_sum) + ' ')
+				.append(showAll)
 		);
 
 		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, list);
 
 	};
 
+	/**
+	 * Render list
+	 */
 	LDP.Dimension.List.prototype.multi = function(dimension) {
 
 		var list = $('<ul></ul>');
@@ -284,11 +326,14 @@ var LDP = function() {};
 
 	}
 
+	/**
+	 * Render item in list
+	 */
 	LDP.Dimension.List.prototype.multiItem = function(dimension, curDimension) {
 
 		var service = this.service;
 
-		var link = $('<a href="#">' + LDP.Dimension.formatValue(curDimension[dimension.key], curDimension.value_sum) + '</a>')
+		var link = $('<a href="#">' + this.formatValue(curDimension[dimension.key], curDimension.value_sum) + '</a>')
 			.click(function() {
 				service.addCut(dimension.name, curDimension[dimension.key]);
 				service.update();
@@ -299,6 +344,12 @@ var LDP = function() {};
 
 	};
 
+	/**
+	 * Utility function to format a dimension value
+	 */
+	LDP.Dimension.List.prototype.formatValue = function(name, value) {
+		return name + ' (' + LDP.numFormat(value) + ')';
+	};
 
 	/**
 	 * BarChart Dimension constructor
@@ -320,6 +371,9 @@ var LDP = function() {};
 		this.scale = config.scale || this.scale;
 	};
 
+	/**
+	 * Process bar chart dimension response
+	 */
 	LDP.Dimension.BarChart.prototype.processResponse = function(dimension) {
 		if (dimension.total_cell_count == null) {
 			this.single(dimension);
@@ -328,6 +382,9 @@ var LDP = function() {};
 		}
 	};
 
+	/**
+	 * Display a single bar
+	 */
 	LDP.Dimension.BarChart.prototype.single = function(dimension) {
 
 		var service = this.service;
@@ -344,16 +401,21 @@ var LDP = function() {};
 		var bar = '<svg class="barChart static" width="' + this.barWidth + '" height="' + this.barHeight + '">';
 		bar += '<rect y="0" width="' + this.barWidth + '" height="' + this.barHeight + '"></rect>';
 		bar += '<text x="' + this.barWidth + '" y="' + (this.barHeight / 2) + '" dx="' + this.textX + '" dy="' + this.textY + '" text-anchor="' + this.textAnchor + '">';
-		bar += LDP.Dimension.formatValue(dimension.summary[dimension.key], dimension.summary.value_sum) + '</text></svg>';
+		bar += dimension.summary[dimension.key] + '</text></svg>';
 
 		// Add content to page
 		var content = $('<div></div>')
+			.addClass('barContainer')
 			.append(bar)
 			.append(removeLink);
+
 		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, content);
 
 	};
 
+	/**
+	 * Display a bar chart
+	 */
 	LDP.Dimension.BarChart.prototype.multi = function(dimension) {
 
 		var handler = this;
@@ -377,10 +439,15 @@ var LDP = function() {};
 				.attr('y', function(d, i) { return i * handler.barHeight; })
 				.attr('width', scale)
 				.attr('height', this.barHeight)
+				.classed('click', true)
 				.on('click', function(d, i) {
 					handler.service.addCut(dimension.name, dimension.drilldown[i][dimension.key]);
 					handler.service.update();
-				});
+				})
+				.on('mousemove', function(d, i) {
+					LDP.Dimension.tooltipMouseMove.apply(this, [dimension, dimension.drilldown[i]]);
+				})
+				.on('mouseout', LDP.Dimension.tooltipMouseOut);
 
 		// Create bar labels
 		chart.selectAll('text')
@@ -392,19 +459,37 @@ var LDP = function() {};
 				.attr('dy', this.textY)
 				.attr('text-anchor', this.textAnchor)
 				.text(function (d, i) {
-					return LDP.Dimension.formatValue(dimension.drilldown[i][dimension.key], d);
+					return dimension.drilldown[i][dimension.key];
 				})
-				.on('click', function(d, i) {
-					// Pass click event to bar's handler
-					var rect = $(this).parent().children('rect').get(i);
-					(d3.select(rect).on('click'))(d, i);
-				});
+				.classed('click', true)
+				.on('click', this.delegateEvent)
+				.on('mousemove', this.delegateEvent)
+				.on('mouseout', this.delegateEvent);
 
 		// Add chart to page
 		LDP.Dimension.addDimension(this.container, dimension.name, dimension.label, chartContainer);
 
 	};
 
+	/**
+	 * Delegate an event on a bar chart's label to the corresponding bar
+	 */
+	LDP.Dimension.BarChart.prototype.delegateEvent = function(d, i) {
+
+		var bar = $(this)
+			.parent()
+			.children('rect')
+			.get(i);
+
+		d3.select(bar)
+			.on(d3.event.type)
+			.apply(bar, [d, i]);
+
+	};
+
+	/**
+	 * Default scaling function (linear) for bar lengths
+	 */
 	LDP.Dimension.BarChart.prototype.scale = function(data) {
 		return d3.scale.linear()
 			.domain([0, d3.max(data)])
@@ -418,9 +503,6 @@ var LDP = function() {};
 		config = config || {};
 
 		this.service = null;
-
-		// What data to place in the tooltips
-		this.formatFeatureToolTip = config.formatFeatureToolTip || this.formatFeatureToolTip;
 
 		// Where to render the map
 		this.container = config.container || '#geo';
@@ -462,6 +544,9 @@ var LDP = function() {};
 		});
 	};
 
+	/**
+	 * Process geo dimension response
+	 */
 	LDP.Dimension.Geo.prototype.processResponse = function(dimension) {
 
 		// Defer processing if the geo data hasn't loaded yet
@@ -471,6 +556,54 @@ var LDP = function() {};
 			return;
 		}
 
+		if (dimension.total_cell_count == null) {
+			this.single(dimension);
+		} else {
+			this.multi(dimension);
+		}
+
+	};
+
+	/**
+	 * Highlight single geogpahical region
+	 */
+	LDP.Dimension.Geo.prototype.single = function(dimension) {
+
+		var handler = this;
+		var service = this.service;
+
+		// Reset styles
+		this.chart.selectAll('path')
+			.style('fill', null)
+			.classed('click', false);
+
+		// Style the region we're selecting on
+		this.setFeatureValue(
+			dimension,
+			dimension.summary,
+			function() { return handler.colourMax; }
+		);
+
+		$('<a href="#" class="showAll">Show All</a>')
+			.click(function() {
+				service.removeCut(dimension.name);
+				service.update();
+				return false;
+			})
+			.appendTo(this.container);
+
+	};
+
+	/**
+	 * Display choropleth
+	 */
+	LDP.Dimension.Geo.prototype.multi = function(dimension) {
+
+		// Remove show all link
+		$(this.container)
+			.find('.showAll')
+			.remove();
+
 		// Get colour range for the current set of values
 		var colourScale = d3.scale.linear()
 			.domain([
@@ -479,14 +612,11 @@ var LDP = function() {};
 			])
 			.range([this.colourMin, this.colourMax])
 
-		// Get prefix for GeoJSON features IDs' (the suffix is always the dimension value)
-		var prefix = (this.featureIdPrefix == null) ? dimension.name + '_' : this.featureIdPrefix;
-
-		// Set each dimension value's area to the appropriate colour
+		// Set each region to the appropriate colour
 		for (var i = 0; i < dimension.drilldown.length; i++) {
 
 			this.setFeatureValue(
-				'#' + prefix + dimension.drilldown[i][dimension.key],
+				dimension,
 				dimension.drilldown[i],
 				colourScale
 			);
@@ -495,43 +625,32 @@ var LDP = function() {};
 
 	};
 
-	LDP.Dimension.Geo.prototype.setFeatureValue = function(featureId, data, colourScale) {
+	/**
+	 * Highlight single geogpahical region in choropleth
+	 */
+	LDP.Dimension.Geo.prototype.setFeatureValue = function(dimension, data, colourScale) {
 
 		var handler = this;
+		var featureId = '#' + ((this.featureIdPrefix == null) ? dimension.name + '_' : this.featureIdPrefix) + data[dimension.key];
 
-		$(featureId)
-			.css('fill', colourScale(data.value_sum))
-			.unbind('mousemove')
-			.unbind('mouseout')
-			.mousemove(function(e) {
+		d3.select(featureId)
+			.style('fill', colourScale(data.value_sum))
+			.classed('click', true)
+			.on('click', function(d, i) {
 
-				if (!this.tooltip) {
-
-					this.tooltip = $('<div class="tooltip"></div>')
-						.css('position', 'absolute')
-						.appendTo('body');
-
+				if (!d3.select(this).classed('click')) {
+					return;
 				}
 
-				this.tooltip
-					.html(handler.formatFeatureToolTip(featureId, data, colourScale))
-					.css({
-						left: (e.pageX - 20) + "px",
-						top: (e.pageY - 45) + "px"
-					})
-					.show();
+				handler.service.addCut(dimension.name, data[dimension.key]);
+				handler.service.update();
 
 			})
-			.mouseout(function(e) {
-				if (this.tooltip) {
-					this.tooltip.hide();
-				}
-			});
+			.on('mousemove', function(d, i) {
+				LDP.Dimension.tooltipMouseMove.apply(this, [dimension, data]);
+			})
+			.on('mouseout', LDP.Dimension.tooltipMouseOut);
 
-	};
-
-	LDP.Dimension.Geo.prototype.formatFeatureToolTip = function(featureId, data, colourScale) {
-		return LDP.numFormat(data.value_sum);
 	};
 
 	LDP.Dimension.Geo.prototype.getId = function(d) {
