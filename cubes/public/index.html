@@ -10,17 +10,24 @@
 		#left { float: left; width: 300px; }
 		#right { float: left; }
 		h1, h2 { margin: 10px 0 10px 0; }
-		#state { float: right; margin-top: 5px; }
+
+		#state { float: right; }
 		#state table { float: right; border-collapse: collapse; font-size: 140%; font-weight: bold; text-align: left; }
 		#state th, #state td { padding: 5px; border: 1px solid #000; }
-		.barChart rect, .barChart text { cursor: pointer; }
-		.barChart.static rect, .barChart.static text { cursor: default; }
+
+		.barContainer { position: relative; }
 		.barChart rect { fill: #4682b4; stroke: #fff; }
 		.barChart text { fill: #fff; }
-		.showAll { display: block; }
-		#geo { float: left; width: 600px; height: 650px; margin-top: 15px; }
+
+		#geo { float: left; position: relative; width: 600px; height: 650px; margin-top: 10px; }
 		#geo path { fill: #6baed6; stroke: #fff; stroke-width: 0.25px; }
+
+		.click { cursor: pointer; }
 		.tooltip { background-color: #000; color: #fff; padding: 3px; text-align: center; }
+
+		.showAll { position: absolute; padding: 3px; background-color:#000; color: #fff; text-decoration: none; }
+		#dimensions .showAll { top: -30px; right: 50px; }
+		#geo .showAll { top: 0; right: 50px; }
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script type="text/javascript" src="js/d3/d3.js"></script>
@@ -61,10 +68,7 @@
 					new LDP.Dimension.Geo({
 						url: 'data/areas.json',
 						colourMin: "#ffc0cb",
-						colourMax: "#800000",
-						formatFeatureToolTip: function(featureId, data, colourScale) {
-							return data['area.name'] + '<br/>' + LDP.numFormat(data.value_sum);
-						}
+						colourMax: "#800000"
 					})
 				);
 
